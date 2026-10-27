@@ -1,0 +1,4 @@
+Mode,FlowId,TrafficClass,Port,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
+Baseline,1,"Emergency Alert",9000,1415,756,659,53.42,111.93,231.597,1.648,659
+Baseline,2,"Ordinary Msg 1",9001,4244,2997,1246,70.63,443.46,232.181,1.822,1246
+Baseline,3,"Ordinary Msg 2",9002,4244,2980,1263,70.23,440.93,232.174,1.820,1263

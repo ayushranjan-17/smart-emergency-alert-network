@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Emergency Alert and Priority Messaging Network - Presentation</title>
+<style>
+  :root {
+    --bg-dark: #0f172a;
+    --card-bg: #1e293b;
+    --border: #334155;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary: #3b82f6;
+    --emergency: #ef4444;
+    --success: #10b981;
+    --accent: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  header {
+    padding: 12px 24px;
+    background: #090d16;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+  .deck-title { font-weight: 700; color: var(--primary); }
+  .deck-progress { color: var(--text-muted); font-family: monospace; }
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    position: relative;
+  }
+  .slide {
+    display: none;
+    width: 100%;
+    max-width: 1100px;
+    height: 90%;
+    max-height: 720px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 45px 50px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    flex-direction: column;
+    justify-content: space-between;
+    animation: fadeIn 0.3s ease;
+  }
+  .slide.active { display: flex; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h1 { font-size: 2.2rem; color: #fff; margin-bottom: 8px; line-height: 1.2; }
+  h2 { font-size: 1.3rem; color: var(--primary); margin-bottom: 20px; font-weight: 500; }
+  .tag { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 12px; }
+  .tag-red { background: rgba(239, 68, 68, 0.2); color: var(--emergency); border: 1px solid rgba(239, 68, 68, 0.4); }
+  .tag-green { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); }
+  .tag-blue { background: rgba(59, 130, 246, 0.2); color: var(--primary); border: 1px solid rgba(59, 130, 246, 0.4); }
+  
+  .slide-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+  }
+  ul { list-style-position: inside; padding-left: 10px; }
+  li { margin-bottom: 10px; }
+  li strong { color: #fff; }
+  
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .card-box {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+  .card-box h3 { font-size: 1.1rem; color: #fff; margin-bottom: 8px; }
+  .stat-val { font-size: 2rem; font-weight: 700; color: var(--success); }
+  .stat-val-red { font-size: 2rem; font-weight: 700; color: var(--emergency); }
+  .stat-label { font-size: 0.85rem; color: var(--text-muted); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; margin-top: 10px; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: #0f172a; color: var(--primary); font-weight: 600; }
+  td strong { color: #fff; }
+  tr:hover { background: rgba(255,255,255,0.03); }
+
+  .chart-img {
+    max-width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+
+  footer {
+    padding: 12px 24px;
+    background: #090d16;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .btn-nav {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+  }
+  .btn-nav:hover { background: #2563eb; }
+  .btn-nav:disabled { background: #334155; cursor: not-allowed; opacity: 0.6; }
+  .hotkey-tip { color: var(--text-muted); font-size: 12px; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="deck-title">Smart Emergency Alert and Priority Messaging Network (ns-3.49)</span>
+  <span class="deck-progress" id="progressIndicator">Slide 1 / 10</span>
+</header>
+
+<main>
+  <!-- Slide 1: Title -->
+  <div class="slide active">
+    <div>
+      <span class="tag tag-red">B.Tech Network Programming Project</span>
+      <h1>Smart Emergency Alert and Priority Messaging Network</h1>
+      <h2>Mitigating Extreme Network Congestion Using ns-3.49 Differentiated Services</h2>
+    </div>
+    <div class="slide-body">
+      <div class="card-box" style="margin-top: 20px;">
+        <p><strong>Course:</strong> Network Programming Laboratory / Mini-Project</p>
+        <p><strong>Simulation Framework:</strong> Network Simulator 3 (Release ns-3.49)</p>
+        <p><strong>Operating System:</strong> macOS Apple Silicon (ARM64)</p>
+        <p><strong>Primary Model:</strong> DiffServ / <code>PrioQueueDisc</code> Priority Queueing</p>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Use <strong>Left / Right Arrow Keys</strong> or Spacebar to navigate the presentation.</p>
+    </div>
+    <div class="stat-label">Simulator Status: Verified & Reproducible (Deterministic RNG Seed 1)</div>
+  </div>
+
+  <!-- Slide 2: Motivation & Problem Statement -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-blue">Motivation & Context</span>
+      <h1>The Disaster Network Congestion Dilemma</h1>
+      <h2>Why standard Best-Effort FIFO routers fail during public emergencies</h2>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card-box">
+          <h3 style="color: var(--emergency);">Civilian Traffic Surge</h3>
+          <p>During earthquakes, floods, or industrial fires, civilian traffic surges by 300%–500% (social media, status updates, messaging, video).</p>
+          <p style="margin-top: 10px;">Network edge routers rapidly fill their buffers, creating chronic congestion.</p>
+        </div>
+        <div class="card-box">
+          <h3 style="color: var(--primary);">Critical Alert Starvation</h3>
+          <p>Disaster response teams and evacuation broadcasts must traverse the exact same shared gateways.</p>
+          <p style="margin-top: 10px;">In standard <strong>FIFO</strong> queueing, emergency alerts sit at the back of 50-packet queues, experiencing hundreds of milliseconds of latency or tail-drop losses.</p>
+        </div>
+      </div>
+      <div class="card-box" style="border-left: 4px solid var(--accent);">
+        <strong>Core Research Question:</strong> How can network-layer DiffServ QoS isolate and prioritize emergency alerts without over-provisioning expensive physical bandwidth?
+      </div>
+    </div>
+    <div class="stat-label">Goal: Near-zero queuing delay + 100% packet delivery for life-critical dispatches.</div>
+  </div>
+
+  <!-- Slide 3: Topology & Overload Design -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-blue">Architecture</span>
+      <h1>Network Topology & Overload Setup</h1>
+      <h2>Asymmetric star topology with a 40% overloaded bottleneck</h2>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div>
+          <ul>
+            <li><strong>Node 0 (Emergency Source):</strong> 200 Kbps, TOS 0x10</li>
+            <li><strong>Node 1 (Ordinary 1):</strong> 600 Kbps, TOS 0x00</li>
+            <li><strong>Node 2 (Ordinary 2):</strong> 600 Kbps, TOS 0x00</li>
+            <li><strong>Node 3 (Gateway Router):</strong> Hosts Traffic Control QueueDisc</li>
+            <li><strong>Node 4 (Response Centre):</strong> Listens on ports 9000, 9001, 9002</li>
+            <li><strong>Access Links:</strong> 10 Mbps, 1 ms delay (Oversized)</li>
+            <li><strong>Bottleneck Link:</strong> 1 Mbps, 10 ms delay</li>
+          </ul>
+        </div>
+        <div class="card-box">
+          <h3>Offered Load vs Bottleneck</h3>
+          <div style="margin: 15px 0;">
+            <div class="stat-val-red">1.4 Mbps</div>
+            <div class="stat-label">Total Offered Load (200 + 600 + 600 Kbps)</div>
+          </div>
+          <div style="margin: 15px 0;">
+            <div class="stat-val" style="color: var(--primary);">1.0 Mbps</div>
+            <div class="stat-label">Bottleneck Capacity (40% Overload)</div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Ordinary traffic alone (1.2 Mbps) exceeds bottleneck capacity, ensuring persistent buffer backlog.</p>
+        </div>
+      </div>
+    </div>
+    <div class="stat-label">Ingress Access: 10 Mbps | Shared Bottleneck: 1 Mbps | NetDevice Queue: 1p</div>
+  </div>
+
+  <!-- Slide 4: Priority Scheduling Pipeline -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-green">Implementation</span>
+      <h1>End-to-End Priority Classification</h1>
+      <h2>From Application Type-of-Service to Multi-Band Router Dequeue</h2>
+    </div>
+    <div class="slide-body">
+      <div class="grid-3">
+        <div class="card-box">
+          <span class="tag tag-blue">Step 1: Application</span>
+          <h3>TOS Tagging</h3>
+          <p>Emergency <code>OnOffApplication</code> sets <code>Tos=0x10</code>.</p>
+          <p style="margin-top: 8px;">Ordinary applications set default <code>Tos=0x00</code>.</p>
+        </div>
+        <div class="card-box">
+          <span class="tag tag-blue">Step 2: Socket & L3</span>
+          <h3>Priority Mapping</h3>
+          <p><code>Socket::IpTos2Priority</code> maps TOS 0x10 to <strong>Priority 6</strong>.</p>
+          <p style="margin-top: 8px;">Gateway router preserves TOS byte upon IPv4 forwarding.</p>
+        </div>
+        <div class="card-box">
+          <span class="tag tag-green">Step 3: Traffic Control</span>
+          <h3>PrioQueueDisc</h3>
+          <p>Priority 6 maps to <strong>Band 0 (High)</strong>.</p>
+          <p style="margin-top: 8px;">Priority 0 maps to <strong>Band 1 (Normal)</strong>.</p>
+          <p style="margin-top: 8px; color: var(--success); font-weight: bold;">Band 0 dequeued first!</p>
+        </div>
+      </div>
+      <div class="card-box">
+        <strong>Hardware Queue Decoupling:</strong> The bottleneck NetDevice queue is set to <code>1p</code>. This prevents packets from piling up in an unmanaged device hardware queue, ensuring all scheduling is governed by the Traffic Control layer.
+      </div>
+    </div>
+    <div class="stat-label">Linux-compatible Traffic Control architecture in ns-3.49</div>
+  </div>
+
+  <!-- Slide 5: Results Summary Table -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-green">Experimental Results</span>
+      <h1>Measured Performance Comparison</h1>
+      <h2>30-Second Continuous Overload Simulation (Seed=1, Run=1)</h2>
+    </div>
+    <div class="slide-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Traffic Class</th>
+            <th>Metric</th>
+            <th>Baseline (FIFO)</th>
+            <th>Priority (PrioQueueDisc)</th>
+            <th>Impact / Relative Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color: var(--emergency);">Emergency Alert</strong></td>
+            <td>Mean End-to-End Delay</td>
+            <td>231.60 +/- 0.21 ms</td>
+            <td><strong style="color: var(--success);">22.26 +/- 0.02 ms</strong></td>
+            <td><strong style="color: var(--success);">-90.4% (10x faster)</strong></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--emergency);">Emergency Alert</strong></td>
+            <td>Packet Delivery Ratio</td>
+            <td>53.42 +/- 1.18%</td>
+            <td><strong style="color: var(--success);">100.00 +/- 0.00%</strong></td>
+            <td>+87.2% (Zero Loss Guarantee)</td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--emergency);">Emergency Alert</strong></td>
+            <td>Throughput</td>
+            <td>111.93 +/- 2.49 Kbps</td>
+            <td>210.92 +/- 0.34 Kbps</td>
+            <td>Full Line Rate Preserved</td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--primary);">Ordinary Msg 1</strong></td>
+            <td>PDR / Mean Delay</td>
+            <td>70.6% / 232.18 ms</td>
+            <td>63.2% / 288.93 ms</td>
+            <td>Statistically Identical Contention</td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--primary);">Ordinary Msg 2</strong></td>
+            <td>PDR / Mean Delay</td>
+            <td>70.2% / 232.17 ms</td>
+            <td>62.2% / 288.87 ms</td>
+            <td>Statistically Identical Contention</td>
+          </tr>
+          <tr>
+            <td><strong>Queue Disc Drops</strong></td>
+            <td>Band 0 / Band 1</td>
+            <td>3,170 drops total (shared)</td>
+            <td><strong style="color: var(--success);">0 (Band 0)</strong> / 3,170 (Band 1)</td>
+            <td>Zero drops in priority band</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stat-label">Source Data: stats-comparison.csv (Mean +/- 95% CI over 10 runs)</div>
+  </div>
+
+  <!-- Slide 6: Delay Comparison Graph -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-blue">Visual Analysis</span>
+      <h1>End-to-End Delay Comparison</h1>
+      <h2>Emergency delay slashed by 90.4% with 95% confidence intervals</h2>
+    </div>
+    <div class="slide-body" style="align-items: center;">
+      <img src="figures/delay_comparison.png" class="chart-img" alt="Delay Comparison Chart">
+      <div class="card-box" style="width: 100%; font-size: 0.9rem;">
+        <strong>Analytical Insight:</strong> Emergency alerts drop from 231.60 ms (FIFO bufferbloat) to 22.26 ms (Priority). Theoretical minimum is 15.77 ms; residual mean 2.17 ms + 1p device queue 4.34 ms explains the 22.28 ms mean delay.
+      </div>
+    </div>
+    <div class="stat-label">Figure generated by reports/analyze-results.py</div>
+  </div>
+
+  <!-- Slide 6B: Delay CDF -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-green">CDF Analysis</span>
+      <h1>Emergency Alert Delay CDF</h1>
+      <h2>Empirical cumulative distribution strictly bounded by queueing theory</h2>
+    </div>
+    <div class="slide-body" style="align-items: center;">
+      <img src="figures/emergency_delay_cdf.png" class="chart-img" alt="Delay CDF Chart">
+      <div class="card-box" style="width: 100%; font-size: 0.9rem;">
+        <strong>Queueing Theory Proof:</strong> In Priority mode, 100% of emergency packets arrive between 15.77 ms (D_min) and 24.4 ms, bounded by D_min + residual of packet in transmission (mean 2.17 ms, max 4.34 ms) + 1 committed packet in device queue (4.34 ms), yielding mean 22.28 ms and max 24.4 ms. In FIFO mode, alerts suffer from queue bufferbloat (~232 ms) and phase-dependent packet loss.
+      </div>
+    </div>
+    <div class="stat-label">Empirical CDF compiled from FlowMonitor delay histograms across 10 runs</div>
+  </div>
+
+  <!-- Slide 7: Packet Delivery Ratio & Loss -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-blue">Visual Analysis</span>
+      <h1>Packet Delivery Ratio & Buffer Drops</h1>
+      <h2>Guaranteed delivery for alerts; ordinary traffic absorbs congestion</h2>
+    </div>
+    <div class="slide-body" style="align-items: center;">
+      <img src="figures/packet_loss_comparison.png" class="chart-img" alt="Packet Loss Chart">
+      <div class="card-box" style="width: 100%; font-size: 0.9rem;">
+        <strong>Drop Isolation:</strong> All 3,170 dropped packets occurred strictly within Band 1 (Ordinary traffic: 3169.6 drops). Band 0 suffered exactly 0 buffer drops because it was never allowed to accumulate a backlog.
+      </div>
+    </div>
+    <div class="stat-label">Figure generated by reports/analyze-results.py</div>
+  </div>
+
+  <!-- Slide 8: Throughput & Channel Efficiency -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-blue">Visual Analysis</span>
+      <h1>Throughput & Network Efficiency</h1>
+      <h2>Work-conserving priority scheduling maintains ~100% link utilization</h2>
+    </div>
+    <div class="slide-body" style="align-items: center;">
+      <img src="figures/throughput_comparison.png" class="chart-img" alt="Throughput Comparison Chart">
+      <div class="card-box" style="width: 100%; font-size: 0.9rem;">
+        <strong>No Bandwidth Waste:</strong> Total delivered throughput across the 1.0 Mbps link is 997.7 Kbps (~99.8% utilization). Priority queueing reorders packets without reducing overall channel efficiency.
+      </div>
+    </div>
+    <div class="stat-label">Figure generated by reports/analyze-results.py</div>
+  </div>
+
+  <!-- Slide 9: Demonstration & Reproducibility -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-green">Live Demonstration</span>
+      <h1>One-Command Automated Execution</h1>
+      <h2>Fully reproducible pipeline in ns-3.49</h2>
+    </div>
+    <div class="slide-body">
+      <div class="card-box" style="font-family: monospace; font-size: 1.1rem; background: #090d16;">
+        $ ./run-experiments.sh
+      </div>
+      <div class="grid-2">
+        <div>
+          <h3>Automated Execution Steps:</h3>
+          <ol style="padding-left: 20px; line-height: 1.8;">
+            <li>Compiles C++ target (<code>smart-emergency-priority</code>)</li>
+            <li>Executes Baseline FIFO run (<code>--priority=0 --anim=1</code>)</li>
+            <li>Executes Priority run (<code>--priority=1 --anim=1</code>)</li>
+            <li>Generates comparison CSV table</li>
+            <li>Executes Python analysis script</li>
+            <li>Outputs PNG figures & NetAnim XML traces</li>
+          </ol>
+        </div>
+        <div class="card-box">
+          <h3>Generated Output Artifacts:</h3>
+          <ul style="font-size: 0.85rem; line-height: 1.8;">
+            <li><code>comparison-summary.csv</code></li>
+            <li><code>results-baseline.csv</code> / <code>results-priority.csv</code></li>
+            <li><code>flowmonitor-baseline.xml</code> / <code>flowmonitor-priority.xml</code></li>
+            <li><code>animation-priority.xml</code> (NetAnim Trace)</li>
+            <li><code>reports/figures/*.png</code> (Presentation Charts)</li>
+            <li><code>reports/figures/dashboard.html</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="stat-label">Zero manual steps required to reproduce all experimental data.</div>
+  </div>
+
+  <!-- Slide 10: Conclusion & Future Scope -->
+  <div class="slide">
+    <div>
+      <span class="tag tag-red">Summary</span>
+      <h1>Conclusion & Future Enhancements</h1>
+      <h2>Validated B.Tech Network Programming Findings</h2>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card-box">
+          <h3 style="color: var(--success);">Key Achievements</h3>
+          <ul>
+            <li>Engineered end-to-end DiffServ TOS classification in ns-3.49.</li>
+            <li>Decoupled driver queue to enable true Traffic Control scheduling.</li>
+            <li>Slashed emergency alert latency by <strong>90.3%</strong>.</li>
+            <li>Achieved <strong>100% PDR</strong> and <strong>0 drops</strong> in priority band.</li>
+          </ul>
+        </div>
+        <div class="card-box">
+          <h3 style="color: var(--accent);">Future Enhancements</h3>
+          <ul>
+            <li><strong>Weighted Fair Queueing (WFQ):</strong> Prevent potential starvation under runaway priority load.</li>
+            <li><strong>Wireless Mesh Extension:</strong> Port to IEEE 802.11bd ad-hoc vehicular networks.</li>
+            <li><strong>Multipath Dynamic Routing:</strong> Enable automatic failover during physical link cuts.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-box" style="text-align: center; margin-top: 10px;">
+        <h2 style="color: #fff; margin-bottom: 4px;">Thank You! Questions & Discussion</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Smart Emergency Alert and Priority Messaging Network | ns-3.49</p>
+      </div>
+    </div>
+    <div class="stat-label">B.Tech Network Programming Project | All Tests Passed</div>
+  </div>
+</main>
+
+<footer>
+  <button class="btn-nav" id="btnPrev" onclick="prevSlide()">&#8592; Previous</button>
+  <span class="hotkey-tip">Tip: Press &larr; / &rarr; Arrow keys or Spacebar to navigate</span>
+  <button class="btn-nav" id="btnNext" onclick="nextSlide()">Next &#8594;</button>
+</footer>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  const progressIndicator = document.getElementById('progressIndicator');
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+
+  function updateSlide(index) {
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === index);
+    });
+    progressIndicator.textContent = `Slide ${index + 1} / ${totalSlides}`;
+    btnPrev.disabled = index === 0;
+    btnNext.disabled = index === totalSlides - 1;
+  }
+
+  function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+      currentSlide++;
+      updateSlide(currentSlide);
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateSlide(currentSlide);
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      prevSlide();
+    } else if (e.key === 'Home') {
+      currentSlide = 0;
+      updateSlide(currentSlide);
+    } else if (e.key === 'End') {
+      currentSlide = totalSlides - 1;
+      updateSlide(currentSlide);
+    }
+  });
+
+  updateSlide(0);
+</script>
+</body>
+</html>

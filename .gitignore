@@ -1,0 +1,21 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+venv/
+.venv/
+
+# Editor & IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Large simulation visual traces
+*.xml
