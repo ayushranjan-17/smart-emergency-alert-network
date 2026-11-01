@@ -52,12 +52,12 @@ struct Params
 {
     uint32_t vehicles = 30;      // vehicles behind the accident
     double spacingM = 40.0;      // gap between vehicles (m)
-    double speedMps = 25.0;      // cruising speed (~90 km/h)
-    double decelMps2 = 4.0;      // comfortable braking deceleration
+    double speedMps = 20.0;      // cruising speed (~90 km/h)
+    double decelMps2 = 8.0;      // comfortable braking deceleration
     double standoffM = 10.0;     // desired stopping distance before crash
     double accidentTimeS = 10.0; // when the crash happens
     double simTimeS = 40.0;
-    uint8_t maxTtl = 10;         // max relay hops
+    uint8_t maxTtl = 40;         // max relay hops
     uint8_t warnTos = 0xB8;      // EF (DSCP 46) when priority=1, 0 otherwise
     uint32_t bgRateKbps = 0;     // civilian background broadcast load per vehicle
     bool priority = true;
