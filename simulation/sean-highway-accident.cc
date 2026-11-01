@@ -52,12 +52,12 @@ struct Params
 {
     uint32_t vehicles = 30;      // vehicles behind the accident
     double spacingM = 40.0;      // gap between vehicles (m)
-    double speedMps = 20.0;      // cruising speed (~90 km/h)
-    double decelMps2 = 8.0;      // comfortable braking deceleration
+    double speedMps = 20.0;      // cruising speed (~72 km/h)
+    double decelMps2 = 8.0;      // emergency braking deceleration
     double standoffM = 10.0;     // desired stopping distance before crash
     double accidentTimeS = 10.0; // when the crash happens
-    double simTimeS = 40.0;
-    uint8_t maxTtl = 40;         // max relay hops
+    double simTimeS = 120.0;
+    uint8_t maxTtl = 40;         // max relay hops (radio range ~40-80 m, so many hops are needed)
     uint8_t warnTos = 0xB8;      // EF (DSCP 46) when priority=1, 0 otherwise
     uint32_t bgRateKbps = 0;     // civilian background broadcast load per vehicle
     bool priority = true;
@@ -69,12 +69,15 @@ struct VehicleState
     Ptr<Node> node;
     Ptr<ConstantVelocityMobilityModel> mob;
     Ptr<Socket> rx;     // receives warnings
-    Ptr<Socket> tx;     // sends warnings / background traffic
+    Ptr<Socket> tx;     // sends background traffic
+    Ptr<Socket> warnTx; // sends warnings and beacons (Wi-Fi priority set here)
     bool warned = false;
     bool relayed = false;
     double warnTime = -1.0;
     double warnDistance = -1.0;  // distance to accident when first warned
     uint8_t hops = 0;
+    uint8_t relayTtl = 0;        // TTL carried by this vehicle's warning beacons
+    uint32_t beacons = 0;        // beacons sent so far (limits total traffic)
     double minSpeed = 1e9;
     double closestApproach = 1e9;  // min gap to accident (negative = collision)
 };
@@ -90,12 +93,30 @@ void SendWarning(uint32_t idx, uint8_t ttl, uint8_t hops)
 {
     WarningMsg m{g_accidentId, (int32_t)std::lround(g_accidentX * 100.0), ttl, hops};
     Ptr<Packet> p = Create<Packet>((uint8_t*)&m, sizeof(m));
-    g_vehicles[idx].tx->SendTo(p, 0, InetSocketAddress(g_bcast, WARNING_PORT));
+    g_vehicles[idx].warnTx->SendTo(p, 0, InetSocketAddress(g_bcast, WARNING_PORT));
 }
 
 void SetVelocity(uint32_t idx, double v)
 {
     g_vehicles[idx].mob->SetVelocity(Vector(v, 0.0, 0.0));
+}
+
+// A warned vehicle keeps repeating the warning (every 0.5 s, up to 20 times) while
+// it is still behind the crash. One lost broadcast then no longer breaks the chain.
+void Beacon(uint32_t idx)
+{
+    VehicleState& v = g_vehicles[idx];
+    if (!v.warned || !g_accidentActive || v.beacons >= 20)
+    {
+        return;
+    }
+    if (v.mob->GetPosition().x >= g_accidentX)
+    {
+        return;  // already past the crash site
+    }
+    v.beacons++;
+    SendWarning(idx, v.relayTtl, v.hops);
+    Simulator::Schedule(Seconds(0.5), &Beacon, idx);
 }
 
 // Accident vehicle announces the crash, repeated for reliability.
@@ -146,6 +167,7 @@ void OnWarning(uint32_t idx, Ptr<Socket> s)
         v.warnTime = Simulator::Now().GetSeconds();
         v.warnDistance = m.xCm / 100.0 - x;
         v.hops = m.hops + 1;
+        v.relayTtl = (m.ttl > 0) ? (uint8_t)(m.ttl - 1) : 0;
 
         // Relay once (with a small random jitter to reduce collisions).
         if (m.ttl > 0 && !v.relayed)
@@ -153,6 +175,8 @@ void OnWarning(uint32_t idx, Ptr<Socket> s)
             v.relayed = true;
             double jitter = 0.005 + 0.02 * (double)(idx % 7) / 7.0;
             Simulator::Schedule(Seconds(jitter), &SendWarning, idx, (uint8_t)(m.ttl - 1), (uint8_t)(m.hops + 1));
+            // Start periodic beacons after the first relay.
+            Simulator::Schedule(Seconds(0.5), &Beacon, idx);
         }
     }
 }
@@ -277,7 +301,18 @@ int main(int argc, char* argv[])
         v.tx = Socket::CreateSocket(v.node, udp);
         v.tx->SetAllowBroadcast(true);
         v.tx->Bind();
-        v.tx->SetIpTos(P.warnTos);
+        v.tx->SetIpTos(0x00);  // background traffic stays best effort
+
+        // Warning socket: set the Wi-Fi priority directly (6 = voice access
+        // category) so warnings do not depend on the TOS marking reaching Wi-Fi.
+        v.warnTx = Socket::CreateSocket(v.node, udp);
+        v.warnTx->SetAllowBroadcast(true);
+        v.warnTx->Bind();
+        v.warnTx->SetIpTos(P.warnTos);
+        if (P.priority)
+        {
+            v.warnTx->SetPriority(6);
+        }
     }
 
     // Crash at accidentTime; control loop every 100 ms.
