@@ -1,0 +1,2 @@
+Scenario,Mode,Run,TotalDrops,Band0Enqueued,Band0Dropped,Band1Enqueued,Band1Dropped,Band2Enqueued,Band2Dropped,FifoEnqueued,FifoDropped
+STEADY,baseline,9,3186,0,0,0,0,0,0,6720,3186

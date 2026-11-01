@@ -1,0 +1,2 @@
+Scenario,Mode,Run,TotalDrops,Band0Enqueued,Band0Dropped,Band1Enqueued,Band1Dropped,Band2Enqueued,Band2Dropped,FifoEnqueued,FifoDropped
+STEADY,priority,9,3186,1416,0,5304,3186,0,0,0,0

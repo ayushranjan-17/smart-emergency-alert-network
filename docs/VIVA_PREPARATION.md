@@ -1,169 +1,304 @@
-# Smart Emergency Alert and Priority Messaging Network
-## Comprehensive Viva Preparation Guide & Technical Q&A
-
-**Course:** B.Tech Network Programming (NWP) Laboratory / Mini-Project  
-**Simulator Platform:** ns-3 (Version 3.49)  
-**Deliverable File:** [`reports/VIVA_PREPARATION.md`](reports/VIVA_PREPARATION.md)
+# Smart Emergency Alert and Priority Messaging Network (SEAN)
+## Comprehensive Viva Voce Defense Guide & Technical Q&A (38 Master Questions)
+### Simulator Platform: Network Simulator 3 (ns-3.49) | Workspace: `~/Downloads/ns-3.49`
 
 ---
 
-## Part 1: Fifteen Likely Viva Questions & Concise Answers
+## PART 1: CORE SIMULATION CONCEPTS & SYSTEM ARCHITECTURE
 
-### Q1: What is the primary objective of your project?
-**Answer:** The objective is to design, simulate, and validate a network-layer Quality of Service (QoS) mechanism using Differentiated Services (DiffServ) and priority queueing (`PrioQueueDisc`) in ns-3.49. It ensures life-critical emergency alerts experience near-zero queueing delay and zero packet drops during severe network congestion, while ordinary civilian traffic absorbs the required backlog.
-
----
-
-### Q2: Why did you choose ns-3 instead of other simulators like Cisco Packet Tracer or Mininet?
-**Answer:** ns-3 is a high-fidelity, discrete-event network simulator written in C++ that models the complete protocol stack down to packet-by-packet, queue-by-queue execution. Packet Tracer is a high-level educational emulator without true queue discipline manipulation, while Mininet uses OS-level Linux network namespaces which introduce variable host scheduling latencies. ns-3 allows 100% deterministic, reproducible experimentation.
+### Q1: What is the main objective of your SEAN project?
+**Answer:** The objective of the **Smart Emergency Alert and Priority Messaging Network (SEAN)** project is to build and evaluate an IP network Quality of Service (QoS) system that protects life-critical emergency messages during acute network congestion. When disaster strikes, civilian messaging surges by 300% to 500%, flooding routers and causing standard FIFO queues to drop evacuation alerts and delay them by hundreds of milliseconds. Our project implements Differentiated Services (DiffServ) and priority queueing in **ns-3.49** to guarantee that emergency alerts arrive with 100% reliability and minimum physical delay, while measuring the exact performance cost absorbed by ordinary civilian traffic.
 
 ---
 
-### Q3: What is the difference between FIFO queueing and Priority Queueing?
+### Q2: Why did you use ns-3.49 instead of Cisco Packet Tracer or Mininet?
 **Answer:**
-- **FIFO (First-In, First-Out):** Maintains a single queue. All packets are serviced strictly in arrival order. High-priority packets must wait behind low-priority packets already in the queue.
-- **Priority Queueing (`PrioQueueDisc`):** Partitions the queue into multiple priority bands (Bands 0, 1, 2). High-priority packets enter Band 0 and are dequeued first. Lower bands are only serviced when all higher-priority bands are empty.
+1. **Packet Tracer** is an educational drag-and-drop tool for learning Cisco IOS commands. It models network behavior at a very high level, but it cannot simulate low-level queuing disciplines, custom socket options, or discrete packet drops with microsecond accuracy.
+2. **Mininet** runs real Linux network namespaces. While great for software-defined networking, Mininet’s timings depend on host CPU load and operating system scheduling, which causes random timing noise.
+3. **ns-3.49** is a discrete-event simulator written in C++. It simulates the entire network stack down to individual bytes and packet headers on an exact simulated clock. It provides **100% reproducible experiments** using controllable random seeds (`RngSeedManager`).
 
 ---
 
-### Q4: How is a packet classified as "Emergency" in your simulation?
-**Answer:** At the application layer, the emergency alert application sets the IPv4 Type of Service attribute `"Tos" = 0x10` (Low Delay/Interactive). ns-3's socket layer maps TOS bits `[6:3]` to Socket Priority 6 via `Socket::IpTos2Priority()`. The socket tags the packet with `SocketPriorityTag(6)`, which `PrioQueueDisc` reads to assign the packet to Band 0.
+### Q3: Why did you choose a wired point-to-point network rather than Wi-Fi or cellular?
+**Answer:** In wireless networks, packet loss and delay are heavily influenced by radio frequency noise, signal attenuation, hidden terminals, and CSMA/CA contention backoff. We chose a wired point-to-point topology to isolate **pure IP-layer queuing and scheduling dynamics**. This ensures that every dropped packet and every microsecond of delay is strictly caused by router buffer overflow and queue discipline behavior, not by wireless channel flakiness.
 
 ---
 
-### Q5: How did you create network congestion?
-**Answer:** We created an asymmetric bottleneck topology:
-- Three ingress sources send traffic across 10 Mbps access links to a gateway router.
-- The router connects to the destination server over a shared **1.0 Mbps bottleneck link**.
-- The two ordinary sources generate 600 Kbps each (1.2 Mbps total), which alone exceeds the 1.0 Mbps bottleneck by 20%.
-- The emergency source generates 200 Kbps, resulting in a total offered load of **1.4 Mbps (40% overload)**.
+### Q4: How is traffic generated in your simulation, and how do you prevent artificial synchronization?
+**Answer:** Senders run a custom UDP application called `JitteredCbrApp`. Senders transmit 512-byte UDP payloads at constant bitrates (e.g., 20 kbps for emergency alerts, 40 kbps for civilian messages). If all 40 senders transmitted at exact clock ticks, packets would collide artificially at the same microsecond. To prevent this "phase lock," our application applies **$\pm 20\%$ uniform random jitter** to packet inter-arrival times:
+$$T_{\text{interval}} = \text{nominal\_interval} \times (1.0 + U(-0.20, +0.20))$$
+This creates realistic, staggered arrivals matching real-world asynchronous traffic.
 
 ---
 
-### Q6: What was the measured delay improvement for emergency alerts?
-**Answer:** In Baseline FIFO mode, emergency alerts suffered an average delay of **230.55 ms** due to queue backlog. In Priority mode, delay dropped to **22.27 ms**—a **90.3% latency reduction** (over 10 times faster delivery).
-
----
-
-### Q7: Why did ordinary traffic delay increase in Priority mode?
-**Answer:** Priority queueing enforces strict preemption. Whenever an emergency packet arrives in Band 0, the gateway router immediately pauses the transmission of Band 1 (ordinary packets). Because ordinary packets must wait in queue while emergency packets jump ahead, ordinary message delay increased by +24.8% (from ~231 ms to ~288 ms).
-
----
-
-### Q8: Why did you set the bottleneck NetDevice queue size to 1 packet (`1p`)?
-**Answer:** In Linux and ns-3 network architecture, each NetDevice has an internal hardware/driver queue. If that driver queue is left at the default size of 100 packets, packets immediately fill the driver FIFO queue, bypassing the Traffic Control layer. Setting `MaxSize = 1p` on the NetDevice forces all waiting packets to queue inside `PrioQueueDisc`, where priority scheduling decisions actually occur.
-
----
-
-### Q9: Did Priority mode drop any emergency packets?
-**Answer:** No. Emergency alerts achieved **100.0% Packet Delivery Ratio (PDR)** and **zero queue drops** in Band 0. All 3,170 dropped packets occurred exclusively within Band 1 (Ordinary traffic: 3169.6 drops).
-
----
-
-### Q10: Why did you use UDP instead of TCP for this simulation?
+### Q5: What is the difference between nominal application payload and actual wire frame size?
 **Answer:**
-1. Real-world emergency broadcasts and short telemetry alerts typically use UDP to avoid connection setup latency (3-way handshake) and head-of-line blocking.
-2. TCP congestion control (AIMD/CUBIC) would dynamically throttle sender rates upon detecting packet drops, obscuring the raw queueing and drop behavior of the network bottleneck. UDP allows us to evaluate pure network-layer queueing under constant, sustained overload.
+- Application payload: **512 bytes**.
+- Protocol headers: **20 bytes** for IPv4 header + **8 bytes** for UDP header = **28 bytes overhead**.
+- Total physical frame: $512 + 28 = \mathbf{540\text{ bytes}}$ ($4,320\text{ bits}$).
+- This introduces a $+5.47\%$ wire framing expansion:
+  $$\frac{540}{512} = 1.0546875$$
+A 1,000 kbps nominal application payload actually generates **$1,054.68\text{ kbps}$ on the physical wire**.
 
 ---
 
-### Q11: What is the theoretical delay breakdown in Priority mode?
-**Answer:** All packets have 512 B payload (542 B on the wire = 4,336 bits):
-- Access Link (10 Mbps): $D_{\text{prop}} = 1.0\text{ ms}$, $T_{\text{tx}} = 0.4336\text{ ms}$.
-- Bottleneck Link (1 Mbps): $D_{\text{prop}} = 10.0\text{ ms}$, $T_{\text{tx}} = 4.336\text{ ms} \approx 4.34\text{ ms}$.
-- Theoretical minimum transit delay: $D_{\text{min}} = 1.0 + 0.4336 + 10.0 + 4.336 = 15.77\text{ ms}$.
-- Priority delay = $D_{\text{min}} + 4.34\text{ ms}$ (packet committed in the 1p device queue) $+ 2.17\text{ ms}$ mean residual (packet in transmission, max 4.34 ms) = ~22.28 ms mean, 24.4 ms max.
-Empirical measurements match this: emergency alert mean delay is 22.26 ms (bounded at <= 24.45 ms).
+## PART 2: QUEUE DISCIPLINES, BUFFERBLOAT, & SCHEDULING
+
+### Q6: What is bufferbloat, and why does it happen?
+**Answer:** Bufferbloat is the excessive latency caused by oversized router buffers that remain permanently full under heavy load. When network traffic exceeds link capacity, a standard FIFO buffer absorbs packets instead of dropping them. Surfacing packets wait behind dozens of older packets. On our 1.0 Mbps link with a 50-packet buffer, queueing delay alone reaches:
+$$\text{Delay} = \frac{50 \times 540 \times 8 \text{ bits}}{1,000,000 \text{ bps}} = \mathbf{216\text{ ms}}$$
+Total delay exceeds $230\text{ ms}$, which is fatal for early-warning earthquake or tsunami alarms.
 
 ---
 
-### Q12: How does `FlowMonitor` track packets across the network?
-**Answer:** `FlowMonitor` installs measurement probes at the network layer of every node. When a packet is transmitted, forwarded, or received, probes inspect IP headers, packet UIDs, and timestamps. At simulation completion, `FlowMonitor` aggregates per-flow statistics including Tx/Rx packets, lost packets, delay sums, and jitter histograms.
-
----
-
-### Q13: What is Jitter, and how did your priority mechanism affect it?
-**Answer:** Jitter (defined by RFC 3393) is the statistical variation in packet transit delay. Emergency alerts maintained a low, stable jitter of **1.41 ms** (vs 1.65 ms in baseline), whereas ordinary messages experienced increased jitter (rising from ~1.82 ms up to ~2.90–2.91 ms) because their dequeuing was repeatedly interrupted by emergency packet arrivals.
-
----
-
-### Q14: What is the command to run your complete experiment suite?
-**Answer:** We created an automated script [`run-experiments.sh`](file:///Users/ravo/Downloads/ns-3.49/run-experiments.sh), which compiles the C++ code, runs both FIFO baseline and Priority modes, generates XML and CSV outputs, and automatically executes the Python analysis script to produce all charts in `reports/figures/`.
-
----
-
-### Q15: Is this system deployed in real-world emergency dispatching?
-**Answer:** No. This is an academic discrete-event network simulation designed to study network scheduling and queue dynamics. In real-world networks, emergency communication also depends on physical infrastructure resilience, power backup, wireless spectrum availability, and authentication protocols.
-
----
-
-## Part 2: Five Challenging Questions for Viva & Defense
-
-### Challenge 1 (Queueing Theory): What happens if the emergency alert traffic itself exceeds the bottleneck link capacity?
+### Q7: What is the fundamental difference between FIFO and Priority Queueing?
 **Answer:**
-In strict priority queueing (`PrioQueueDisc`), Band 0 is drained unconditionally before Band 1 is ever served. If emergency traffic offered load were to exceed the bottleneck capacity (e.g., emergency rate increased to 1.2 Mbps on a 1.0 Mbps link):
-1. Band 0 itself would experience queue backlog, and emergency packets would suffer tail-drop within Band 0 once the 50-packet limit is reached.
-2. Band 1 (Ordinary traffic) would experience **complete starvation** (0% throughput, 100% loss) because the router would never find Band 0 empty.
-To prevent this in production networks, routers deploy **Class-Based Weighted Fair Queueing (CBWFQ)** or **Deficit Round Robin (DRR)**, which guarantee emergency traffic a minimum dedicated bandwidth while allocating a small non-zero share to prevent ordinary traffic starvation.
+- **FIFO (`FifoQueueDisc`):** Operates a single shared drop-tail buffer. Packets are processed in strict arrival order. When the buffer is full, incoming packets are dropped regardless of importance.
+- **Priority Queueing (`PrioQueueDisc`):** Divides the queue into multiple sub-queues called **bands** (Band 0 = High, Band 1 = Normal, Band 2 = Low), each with its own 50-packet capacity. The router always serves Band 0 first. Band 1 is only served when Band 0 is completely empty.
 
 ---
 
-### Challenge 2 (Transport Layer): In the single-run test, Ordinary Source 1 and Ordinary Source 2 originally showed huge PDR asymmetry. Why did randomizing start times not fully solve it, and how did you finally fix it?
-**Answer:**
-Both ordinary sources transmit at 600 Kbps (1 packet every 6.82 ms nominal). In a discrete-event simulator with constant bit rate (CBR) traffic and a drop-tail FIFO queue, packets experience **Phase Synchronization**:
-- Merely randomizing the start time offset only sets a constant phase shift; the CBR sources remain strictly periodic thereafter. Once deterministic lockstep phase is established in a run, one interface consistently claims buffer slots when they open, causing the other flow to take all tail-drops (e.g. 100% vs 40.9% PDR).
-- **The True Resolution:** We broke the source periodicity by introducing **per-packet random jitter** ($\pm 20\%$) or exponential inter-packet gaps across all three sources.
-- With per-packet desynchronization, packet arrival intervals continuously vary independently. Within every single run, Ordinary 1 and Ordinary 2 PDR differ by **less than 5 percentage points** (measured delta $\approx 0.5\%$), and across 10 runs confidence intervals are tightly bounded.
+### Q8: Is `PrioQueueDisc` preemptive or non-preemptive? Does an emergency packet interrupt an ongoing transmission?
+**Answer:** It is **non-preemptive**. Once a packet has begun transmitting onto the physical wire, it cannot be interrupted or aborted. If a 540-byte civilian packet is already transmitting when an emergency packet arrives, the emergency packet must wait for that single transmission to finish.
+The maximum residual waiting time is:
+$$\tau_{\text{residual}} = \frac{540 \times 8 \text{ bits}}{1,000,000 \text{ bps}} = \mathbf{4.32\text{ ms}}$$
+Once the wire is free, the emergency packet is transmitted immediately before any other packet in the queue.
 
 ---
 
-### Challenge 3 (Queueing Theory): What is the theoretical delay breakdown of your topology, and how do you calculate the priority emergency delay?
-**Answer:**
-1. **Theoretical Minimum ($D_{\text{min}} = 15.77\text{ ms}$):**
-   - Application payload: 512 bytes + UDP (8 B) + IP (20 B) + PPP (2 B) = 542 bytes on the wire (4,336 bits).
-   - Access link ($10\text{ Mbps}, 1\text{ ms}$): Serialization = $0.4336\text{ ms}$, Propagation = $1.0\text{ ms}$.
-   - Bottleneck link ($1\text{ Mbps}, 10\text{ ms}$): Serialization = $4.336\text{ ms} \approx 4.34\text{ ms}$, Propagation = $10.0\text{ ms}$.
-   - Absolute minimum transit time = $1.0 + 0.4336 + 10.0 + 4.336 = 15.77\text{ ms}$.
-2. **Priority Delay Derivation ($D_{\text{min}} = 15.77\text{ ms}$, Mean $22.28\text{ ms}$, Max $24.4\text{ ms}$):**
-   - Packet transmission across physical interfaces is strictly **non-preemptive**: once serialization begins on the 1 Mbps channel, transmission cannot be interrupted.
-   - All packets in the network are 512 B payload (542 B on wire).
-   - When an emergency packet arrives at Gateway Node 3, it waits for:
-     a) **Residual of the packet in transmission:** Mean residual = $\frac{4.34}{2} = 2.17\text{ ms}$, Max residual = $4.34\text{ ms}$.
-     b) **The one ordinary packet committed in the 1-packet device queue:** The NetDevice hardware driver queue capacity is set to `1p`. One ordinary packet has already been dequeued from the Traffic Control layer and committed into this buffer; it cannot be preempted, taking exactly $4.34\text{ ms}$ of serialization.
-   - **Total Priority Delay:**
-     - $D_{\text{min}} = 15.77\text{ ms}$
-     - Mean priority delay = $15.77 + 2.17 + 4.34 = 22.28\text{ ms}$
-     - Maximum priority delay = $15.77 + 4.34 + 4.34 = 24.45\text{ ms} \approx 24.4\text{ ms}$
-   - Empirical measurements under Priority mode match this precisely (mean $\approx 22.26\text{ ms}$, max $\le 24.45\text{ ms}$), as proven by the empirical Delay CDF.
-   - Under FIFO baseline mode, emergency alerts wait behind ordinary packets in the 50-packet queue disc ($\approx 232\text{ ms}$ delay), and emergency loss depends directly on source phase alignment and queue tail-drop timing, reported as measured.
+### Q9: What happens if emergency traffic itself exceeds bottleneck capacity?
+**Answer:** The zero-drop guarantee holds **only while aggregate emergency offered load is less than bottleneck capacity**:
+$$\sum R_{\text{emergency}} < C_{\text{bottleneck}}$$
+In our 50-node network, 10 emergency sources send 20 kbps each = 200 kbps, which is well below the 1.0 Mbps link limit (20% utilization). If emergency traffic exceeded 1.0 Mbps, Band 0 itself would overflow, and lower bands would suffer 100% starvation.
 
 ---
 
-### Challenge 3 (Routing & Forwarding): When Node 3 forwards an IP packet, does it retain the original socket tag, or does it re-classify the packet?
-**Answer:**
-In ns-3, socket tags (`SocketPriorityTag`) are ephemeral and stripped when packets exit the originating host's net device. When intermediate router Node 3 receives the packet:
-1. `Ipv4L3Protocol::Receive()` decapsulates the packet and looks up the routing table.
-2. Inside `Ipv4L3Protocol::SendRealOut()`, ns-3 explicitly preserves the IPv4 header's Type of Service byte (`ipHeader.GetTos()`).
-3. ns-3 calls `uint8_t priority = Socket::IpTos2Priority(ipHeader.GetTos());`.
-4. If priority is non-zero, it re-creates and attaches a new `SocketPriorityTag` to the forwarded packet before passing it down to the Traffic Control layer of the outgoing bottleneck interface.
-This confirms that DiffServ prioritization works hop-by-hop across intermediate routers without requiring stateful reservations.
+### Q10: What is the purpose of setting NetDevice queue capacity to 1 packet (`1p`)?
+**Answer:** In operating systems and ns-3, there are two queuing layers: the **Traffic Control layer** (where queue disciplines like `PrioQueueDisc` and `CoDel` run) and the **hardware device ring buffer** (NetDevice queue). If the NetDevice queue is large, packets bypass Traffic Control scheduling and queue up in the hardware FIFO ring buffer. By setting the NetDevice queue to 1 packet (`1p`), we force all queuing backlog into the Traffic Control layer, ensuring that our priority scheduler makes all scheduling decisions.
 
 ---
 
-### Challenge 4 (Performance Measurement): Why does FlowMonitor report 6 flows in its XML output when your simulation only has 3 sender applications?
-**Answer:**
-`FlowMonitor` classifies flows using the IP 5-tuple: `(Source IP, Destination IP, Protocol, Source Port, Destination Port)`.
-In our simulation, there are 3 forward UDP application flows:
-- `10.1.1.1 -> 10.1.4.2` (Port 9000)
-- `10.1.2.1 -> 10.1.4.2` (Port 9001)
-- `10.1.3.1 -> 10.1.4.2` (Port 9002)
-The additional 3 flows recorded in `FlowMonitor` represent reverse routing control or ICMP probes / probe-tracking structures initialized during network setup. In our C++ analysis loop, we filter strictly for `tuple.destinationAddress == serverIp` and destination ports `9000`, `9001`, and `9002` to isolate the exact forward application telemetry.
+## PART 3: FIVE-NODE BASELINE & CONGESTION SWEEP (STUDIES 1 & 2)
+
+### Q11: What are the key results of Study 1 (the 5-node baseline)?
+**Answer:** Under 140% bottleneck load ($1.4\text{ Mbps}$ offered load vs. $1.0\text{ Mbps}$ capacity):
+- **FIFO Baseline:** Emergency PDR was only **$54.16\%$** ($648.9$ drops), and delay was **$231.67\text{ ms}$**.
+- **Priority Mode:** Emergency PDR reached **$100.00\%$** ($0.0$ drops), and delay dropped to **$22.28\text{ ms}$**—a **$90.38\%$ latency reduction** ($-209.39\text{ ms}$, $p < 10^{-20}$).
+- **Civilian Cost:** Ordinary civilian PDR degraded from $70.28\%$ to $62.66\%$, and civilian delay increased from $232.17\text{ ms}$ to $288.66\text{ ms}$.
 
 ---
 
-### Challenge 5 (Architecture & Standards): How does your TOS byte `0x10` relate to modern DiffServ DSCP (Differentiated Services Code Point) standards?
+### Q12: Why was there a reported discrepancy between 54.16% and 66.22% for baseline emergency PDR?
+**Answer:** The authoritative value on disk has always been **$54.16\%$** in the 5-node experiment. The figure $66.22\%$ was an isolated conversational calculation error by an earlier AI assistant who divided a 50-node reception count ($\approx 937$ received packets) by the 5-node transmission count ($1,415$ transmitted packets): $\frac{937.3}{1415.5} \times 100 = 66.22\%$. In the 50-node network at 140% load, the baseline emergency PDR is actually **$66.82\%$**. Both numbers are verified and belong to different topologies.
+
+---
+
+### Q13: At what offered load does packet loss and bufferbloat begin in Study 2?
+**Answer:** Packet loss and bufferbloat begin at **nominal 100% load** ($1,000\text{ kbps}$ application payload). Because of the 28-byte IP/UDP header overhead, 1,000 kbps of payload generates **$1,054.68\text{ kbps}$ on the wire**—a $+5.47\%$ line overload. In FIFO, drops start at 100% load ($13.8$ drops) and delay surges from $31.8\text{ ms}$ to $198.8\text{ ms}$. Under Priority scheduling, emergency alerts remain 100% protected with zero drops and $28.53\text{ ms}$ delay across all loads.
+
+---
+
+## PART 4: STEADY VS. BURSTY TRAFFIC DYNAMICS (STUDY 3)
+
+### Q14: How did you configure bursty traffic in Study 3?
+**Answer:** We evaluated two traffic patterns for ordinary civilian traffic with **identical long-run average offered load ($1,200\text{ kbps}$)**:
+- **Steady:** 30 sources $\times 40\text{ kbps} = 1,200\text{ kbps}$ continuously.
+- **Bursty:** 30 sources sending in periodic ON/OFF bursts: $0.5\text{ s}$ ON at $80\text{ kbps}$, followed by $0.5\text{ s}$ OFF at $0\text{ kbps}$ (50% duty cycle). During the ON phase, ordinary traffic alone generates **$2,400\text{ kbps}$** (240% overload alone; 260% with emergency). Over time, the average rate is exactly $1,200\text{ kbps}$.
+
+---
+
+### Q15: Why does bursty FIFO appear to have higher emergency PDR than steady FIFO?
+**Answer:** In bursty FIFO, time-averaged emergency PDR is **$75.26\%$**, compared to **$67.44\%$** in steady FIFO. This is because during the 0.5-second OFF intervals, ordinary traffic stops completely. The queue drains in $\approx 217\text{ ms}$, leaving the bottleneck empty for $\approx 283\text{ ms}$. Emergency packets arriving during this quiet window experience **100% admission and near-zero delay**.
+
+---
+
+### Q16: What is the downside of bursty FIFO for emergency alerts?
+**Answer:** While average PDR is higher, **jitter explodes by +1,917%** ($5.07\text{ ms} \rightarrow \mathbf{102.25\text{ ms}}$). Delay oscillates in a severe periodic saw-tooth:
+- Packets arriving during OFF intervals experience $\approx \mathbf{21.5\text{ ms}}$ delay.
+- Packets arriving during ON bursts experience $\approx \mathbf{240\text{ ms}}$ delay.
+This high latency variance makes bursty FIFO completely unreliable for emergency systems that require predictable timing.
+
+---
+
+### Q17: How does Priority Queueing handle bursty civilian traffic?
+**Answer:** `PrioQueueDisc` completely isolates emergency traffic from civilian bursts. Emergency packets are enqueued in Band 0 and served first. Emergency alerts achieve **$100.00\%$ PDR, bounded $27.18\text{ ms}$ latency, and $1.89\text{ ms}$ jitter** in both steady and bursty conditions ($p < 10^{-17}$). Civilian traffic absorbs the entire burst penalty, dropping to $48.39\%$ PDR.
+
+---
+
+## PART 5: ACTIVE QUEUE MANAGEMENT (RED & CODEL) (STUDY 4)
+
+### Q18: What is RED, and what parameters did you configure?
+**Answer:** Random Early Detection (RED) is an active queue management algorithm that drops packets probabilistically based on average queue size $\bar{q}$.
+Our configuration:
+- `MinTh = 5 packets`: below this, no packets are dropped.
+- `MaxTh = 15 packets`: above this, all incoming packets are dropped.
+- Queue weight $w_q = 0.002$ and maximum drop probability $p_{\max} = 0.10$.
+
+---
+
+### Q19: What is CoDel, and how does it differ from RED?
+**Answer:** Controlled Delay (CoDel) measures **packet sojourn time** (time spent waiting in queue) rather than queue length.
+- Parameters: `target = 5 ms`, `interval = 100 ms`.
+- If minimum packet delay over the 100 ms window exceeds 5 ms, CoDel assumes persistent bufferbloat, enters dropping state, and drops packets at an increasing rate until delay drops below 5 ms. Unlike RED, CoDel requires no manual threshold tuning.
+
+---
+
+### Q20: Can standalone RED or CoDel protect emergency alerts without priority scheduling?
+**Answer:** **No, absolutely not.** Standalone RED and CoDel drop packets based on total queue occupancy without inspecting packet priority.
+- Under 140% load, RED emergency PDR is **$65.85\%$** (statistically identical to FIFO $66.82\%$, $p = 0.184$).
+- CoDel emergency PDR is **$65.87\%$** ($p = 0.183$).
+While CoDel succeeds in cutting delay to $22.25\text{ ms}$, it drops emergency alerts at the exact same rate as ordinary civilian messages.
+
+---
+
+### Q21: What is Hybrid Prio-CoDel, and why is it the optimal queue discipline?
+**Answer:** Hybrid Prio-CoDel combines strict priority scheduling with CoDel active queue management:
+- **Band 0 (High Priority):** FIFO queue discipline dedicated to Emergency Alerts.
+- **Bands 1 & 2 (Lower Priorities):** CoDel queue disciplines for civilian traffic.
+**Results:** Emergency Alerts achieve **$100.00\%$ PDR, zero drops, and $28.71\text{ ms}$ latency** in Band 0, while CoDel in lower bands eliminates $176.25\text{ ms}$ of bufferbloat latency for civilian traffic ($237.00\text{ ms} \rightarrow 60.75\text{ ms}$).
+
+---
+
+## PART 6: DSCP CLASSIFICATION & PRIORITY MAPPING (STUDY 5)
+
+### Q22: What is the difference between DSCP and the IPv4 TOS octet?
 **Answer:**
-Historically, RFC 791 defined the IPv4 TOS octet using 3 bits for Precedence and 4 bits for Type of Service (Low Delay, High Throughput, High Reliability). TOS value `0x10` corresponds to the "Low Delay" bit (bit 4) set.
-RFC 2474 updated the TOS byte into the **6-bit Differentiated Services Code Point (DSCP)** field:
-- A TOS byte of `0x10` (`00010000` in binary) shifts the upper 6 bits to DSCP value `000100` (binary 4), known as **CS2 (Class Selector 2)** or low-latency interactive class.
-ns-3's `Socket::IpTos2Priority()` maintains backwards compatibility by parsing both classic TOS bitmasks and RFC 2474 DiffServ byte mappings to determine socket priority bands.
+- **DSCP (Differentiated Services Code Point):** A 6-bit value ($0 \dots 63$) defining Per-Hop Behavior (RFC 2474).
+- **IPv4 TOS/DS Field:** An 8-bit byte. The 6 DSCP bits occupy the **high-order 6 bits**, and the 2 ECN bits occupy the **low-order 2 bits**.
+- To set DSCP $D$ on an application socket without ECN, the value must be shifted left by 2 bits:
+  $$\text{TOS Byte} = D \ll 2 = D \times 4$$
+
+---
+
+### Q23: What are the exact hex and decimal byte values for EF, AF41, BE, and CS6?
+**Answer:**
+1. **Best Effort (BE):** DSCP 0 $\rightarrow 0 \ll 2 = 0 =$ **`0x00`**.
+2. **Legacy Baseline:** TOS `0x10` $\rightarrow$ RFC 1349 Low-Delay / DSCP 4.
+3. **Assured Forwarding (AF41):** DSCP 34 $\rightarrow 34 \ll 2 = 136 =$ **`0x88`**.
+4. **Expedited Forwarding (EF):** DSCP 46 $\rightarrow 46 \ll 2 = 184 =$ **`0xB8`**.
+5. **Class Selector 6 (CS6):** DSCP 48 $\rightarrow 48 \ll 2 = 192 =$ **`0xC0`**.
+
+---
+
+### Q24: What happens if you forget to shift DSCP 46 by 2 bits and write raw 46 (`0x2E`) to the socket?
+**Answer:** It causes **catastrophic priority inversion**. In hex, $46 = \text{0x2E}$. When ns-3 translates `0x2E` via `Socket::IpTos2Priority`, `0x2E & 0x1e = 14`, which shifts to 7 and maps to Priority 2 (`BULK`). Under the default Priomap, Priority 2 is routed to **Band 2 (bulk queue)**. Meanwhile, ordinary traffic goes to Band 1. Emergency alerts are placed in the lowest priority queue and starved: emergency PDR collapses to **$1.10\%$** ($1,329.9$ dropped packets).
+
+---
+
+### Q25: How does ns-3.49 translate the TOS byte into internal socket priority?
+**Answer:** Through `Socket::IpTos2Priority(uint8_t ipTos)` in `src/network/model/socket.cc`:
+```cpp
+uint8_t Socket::IpTos2Priority(uint8_t ipTos) {
+    uint8_t prio = NS3_PRIO_BESTEFFORT;
+    ipTos &= 0x1e;
+    switch (ipTos >> 1) { ... }
+}
+```
+The bitmask `ipTos & 0x1e` masks only bits 1, 2, 3, and 4. It discards the top 3 precedence bits (bits 5–7).
+
+---
+
+### Q26: Why does Class Selector 6 (CS6: `0xC0`) fail to achieve priority in ns-3.49?
+**Answer:** Because CS6 has byte value `0xC0` (`1100 0000` in binary). Bits 1–4 are all zero. When the function executes `0xC0 & 0x1e`, the result is **`0x00`**. The switch statement hits `case 0` and maps CS6 to **`NS3_PRIO_BESTEFFORT = 0`**, routing it to Band 1 with Best Effort traffic ($94.77\%$ PDR).
+
+---
+
+### Q27: What is the "Default Linux Priomap Trap" when using standard DSCP EF?
+**Answer:** In ns-3 and Linux, the default Priomap is:
+`"1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1"`
+- DSCP EF (`0xB8`) maps to socket priority 4 (`NS3_PRIO_INTERACTIVE_BULK`).
+- Array index 4 maps to **Band 1 (Normal Priority)**.
+- Civilian Best Effort (`0x00`) ALSO maps to **Band 1**!
+- Telemetry AF41 (`0x88`) maps to priority 2, which maps to **Band 2 (Bulk Queue)**!
+**Consequence:** EF packets are trapped in Band 1 with civilian traffic ($94.77\%$ PDR, $216.58\text{ ms}$ delay), while telemetry packets are starved in Band 2 ($1.08\%$ PDR).
+
+---
+
+### Q28: How does the Custom DiffServ Priomap solve this problem?
+**Answer:** We configure the Custom Priomap:
+`"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2"`
+This explicitly routes:
+- Priority 4 (EF `0xB8`) $\rightarrow$ **Band 0** (High Priority: 100.00% PDR, $28.61\text{ ms}$ delay).
+- Priority 6 (Legacy TOS `0x10`) $\rightarrow$ **Band 0** (High Priority: 100.00% PDR, $28.61\text{ ms}$ delay).
+- Priority 2 (AF41 `0x88`) $\rightarrow$ **Band 1** (Medium Priority: 100.00% PDR, $32.03\text{ ms}$ delay).
+- Priority 0 (BE `0x00`) $\rightarrow$ **Band 2** (Low Priority: 44.57% PDR, $585.47\text{ ms}$ delay).
+This achieves genuine 3-tier Quality of Service.
+
+---
+
+### Q29: Does packet marking alone provide any benefit in a standard FIFO router?
+**Answer:** **No, zero benefit.** Comparing `fifo_diffserv` (EF emergency packets) against `fifo_be` (all best effort), the PDR difference is exactly $0.0000\text{ pp}$ and delay difference is $0.0000\text{ ms}$ on every matched seed ($p = 1.000$). A FIFO queue never inspects priority tags. Marking without priority queueing is completely inert.
+
+---
+
+## PART 7: STATISTICAL INFERENCE, CONSERVATION, & DROPS
+
+### Q30: How many total simulation runs did you execute across the project?
+**Answer:** Exactly **490 simulation runs**:
+- Study 1 (5-node baseline): 20 runs (10 FIFO, 10 Priority).
+- Study 2 (50-node congestion sweep): 100 runs (5 loads $\times$ 2 modes $\times$ 10 seeds).
+- Study 3 (steady vs. bursty): 40 runs (2 traffic patterns $\times$ 2 modes $\times$ 10 seeds).
+- Study 4 (queue discipline comparison): 250 runs (5 queue disciplines $\times$ 5 loads $\times$ 10 seeds).
+- Study 5 (DSCP classification): 80 runs (8 conditions $\times$ 10 seeds).
+All 490 runs executed with 100% success and exit code 0.
+
+---
+
+### Q31: What is Common Random Numbers (CRN), and why did you use paired $t$-tests?
+**Answer:** Common Random Numbers means that when comparing two queueing modes (e.g. FIFO vs. Priority), both runs use the **exact same pseudo-random seed** ($r = 1 \dots 10$). This ensures that both runs experience identical packet generation times, initial start delays, and traffic arrival patterns. By evaluating the differences $D_i = X_{\text{Prio}, i} - X_{\text{FIFO}, i}$, arrival noise cancels out, allowing a **paired Student's $t$-test with 9 degrees of freedom ($df = 9$)** to detect true scheduling effects with extreme statistical significance ($p < 10^{-9}$).
+
+---
+
+### Q32: What is the physical packet conservation law, and did your data satisfy it?
+**Answer:** The fundamental network conservation law states that every packet transmitted must either be received or lost:
+$$\text{TxPackets} = \text{RxPackets} + \text{LostPackets}$$
+Across all 18,860 flow records in all 490 simulation runs, there were **zero packet conservation violations**.
+
+---
+
+### Q33: Why did FlowMonitor report 50 more lost packets than the queue disc drop counter in starved queues?
+**Answer:** In Study 5 conditions where Band 2 was starved (`prio_default_diffserv`, `prio_default_cs6`, `prio_default_unshifted`), FlowMonitor reported `total_lost` as exactly 50 packets greater than queue disc drops ($2,755.4$ vs $2,705.4$).
+**Root Cause:** The Band 2 buffer capacity is 50 packets (`MaxSize = 50p`). Because Band 1 was continuously active, Band 2 stopped dequeueing. When the simulation stopped at $T = 30.0\text{ s}$, **50 packets remained stranded inside the buffer**. FlowMonitor marks packets that never reached the destination as lost, while the queue disc drop counter only counts active discard events:
+$$\text{Total Lost} (2,755.4) = \text{Queue Drops} (2,705.4) + \text{Stranded in Buffer} (50.0)$$
+This accounts for every single packet down to the unit level.
+
+---
+
+### Q34: What is drop conservation, and why does priority queueing not eliminate total drops?
+**Answer:** Priority queueing is a **capacity redistributor, not a bandwidth generator**. If a bottleneck can carry 1.0 Mbps and the offered load is 1.4 Mbps, approximately 0.4 Mbps of packets must be dropped regardless of scheduling. Priority queueing does not eliminate drops; it **reallocates all drops to lower priority queues**. In Study 1, total drops are conserved at 3,170 (FIFO) vs 3,171 (Priority). Under Priority, Band 0 drops 0 packets, while ordinary civilian queues absorb all 3,171 drops.
+
+---
+
+## PART 8: LIMITATIONS, REPRODUCIBILITY, & FUTURE WORK
+
+### Q35: What are the main limitations of your simulation model?
+**Answer:**
+1. **Wired Bottleneck:** The simulation models wired point-to-point links. It excludes wireless phenomena (multipath fading, Doppler shift, CSMA/CA backoff).
+2. **Fixed Packet Sizing:** Evaluated with 512-byte UDP payloads. Variable MTU sizes or TCP congestion control window dynamics may change buffer drain slopes.
+3. **Emergency Capacity Bound:** If emergency traffic exceeds link capacity ($> 1.0\text{ Mbps}$), priority queueing cannot prevent Band 0 packet loss.
+
+---
+
+### Q36: How would you prevent emergency traffic from completely starving civilian traffic?
+**Answer:** By implementing a **Token Bucket Filter (TBF) or rate-limiter on Band 0**. This enforces a traffic contract: emergency alerts are granted strict priority up to a committed information rate (e.g., 300 kbps). Any emergency traffic exceeding this rate is either shaped or policed, guaranteeing that at least 700 kbps remains available for civilian communication.
+
+---
+
+### Q37: How can your entire project be reproduced from scratch?
+**Answer:** The repository includes automated shell runners for every study:
+```bash
+./run-experiments.sh                    # Study 1 (20 runs)
+./run-congestion-experiments.sh         # Study 2 (100 runs)
+./run-steady-bursty-experiments.sh      # Study 3 (40 runs)
+./run-queue-disc-experiments.sh         # Study 4 (250 runs)
+./run-dscp-classification-experiments.sh # Study 5 (80 runs)
+```
+Each runner compiles the corresponding C++ script, executes the seeds, generates a manifest CSV, and launches Python analysis scripts that regenerate all summary tables and 29 high-resolution figures.
+
+---
+
+### Q38: What are the top three takeaways you want the examination committee to remember?
+**Answer:**
+1. **Priority Scheduling Is Mandatory:** Best-effort FIFO and standalone AQM (RED/CoDel) fail to protect emergency alerts during congestion. Non-preemptive priority queueing delivers $100.00\%$ delivery and bounded $\approx 28.6\text{ ms}$ latency under 140% overload.
+2. **Hybrid Prio-CoDel Is the Optimal Architecture:** Strict priority in Band 0 protects emergency alerts, while CoDel in lower bands eliminates $176\text{ ms}$ of bufferbloat for civilian cross-traffic.
+3. **DSCP Requires Classifier Configuration:** Packet marking alone does nothing. Furthermore, default Linux Priomaps trap standard DSCP EF in Band 1; deploying a **Custom Priomap** is strictly required to achieve genuine multi-tier Quality of Service.

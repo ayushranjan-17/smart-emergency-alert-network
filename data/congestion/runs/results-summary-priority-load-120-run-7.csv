@@ -1,0 +1,3 @@
+Mode,Run,Seed,LoadPercent,TrafficClass,FlowCount,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
+priority,7,1,120,Emergency Alert,10,1212,1212,0,100.00,180.55,26.48,1.89,0
+priority,7,1,120,Ordinary Msg,30,7261,5502,1759,75.77,819.61,277.34,9.48,1759

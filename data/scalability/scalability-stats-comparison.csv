@@ -1,0 +1,17 @@
+TrafficClass,Metric,SampleSize,Baseline_Mean,Baseline_CI95,Priority_Mean,Priority_CI95,Unit,Difference,RelativeChange
+Emergency,Tx,10,1410.50,2.29,1410.50,2.29,packets,+0.00,+0.0%
+Emergency,Rx,10,944.20,11.71,1410.50,2.29,packets,+466.30,+49.4%
+Emergency,Lost,10,466.30,10.94,0.00,0.00,packets,-466.30,-100.0%
+Emergency,PDR,10,66.94,0.79,100.00,0.00,%,+33.06,+49.4%
+Emergency,Throughput,10,140.65,1.75,210.12,0.34,Kbps,+69.46,+49.4%
+Emergency,Delay,10,234.09,0.15,26.03,0.03,ms,-208.06,-88.9%
+Emergency,Jitter,10,5.24,0.16,1.90,0.04,ms,-3.34,-63.7%
+Emergency,Drops,10,466.30,10.94,0.00,0.00,packets,-466.30,-100.0%
+Ordinary,Tx,10,8476.00,6.04,8476.00,6.04,packets,+0.00,+0.0%
+Ordinary,Rx,10,5772.00,11.71,5305.90,2.60,packets,-466.10,-8.1%
+Ordinary,Lost,10,2704.00,15.67,3170.10,6.90,packets,+466.10,+17.2%
+Ordinary,PDR,10,68.10,0.17,62.60,0.06,%,-5.50,-8.1%
+Ordinary,Throughput,10,859.83,1.74,790.40,0.39,Kbps,-69.43,-8.1%
+Ordinary,Delay,10,233.51,0.12,289.96,0.24,ms,+56.44,+24.2%
+Ordinary,Jitter,10,4.69,0.08,11.58,0.58,ms,+6.89,+146.9%
+Ordinary,Drops,10,2704.00,15.67,3170.10,6.90,packets,+466.10,+17.2%

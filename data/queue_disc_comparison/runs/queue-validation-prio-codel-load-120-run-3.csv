@@ -1,0 +1,2 @@
+QDisc,Run,Seed,LoadPercent,Band0Enqueued,Band0Dropped,Band1Enqueued,Band1Dropped,EmerEnqueued,EmerDropped,OrdEnqueued,OrdDropped,TotalLost
+prio-codel,3,3,120,1211,0,7255,1798,0,0,0,0,1798

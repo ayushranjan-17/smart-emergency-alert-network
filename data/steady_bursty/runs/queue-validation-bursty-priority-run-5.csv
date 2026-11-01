@@ -1,0 +1,2 @@
+Scenario,Mode,Run,TotalDrops,Band0Enqueued,Band0Dropped,Band1Enqueued,Band1Dropped,Band2Enqueued,Band2Dropped,FifoEnqueued,FifoDropped
+BURSTY,priority,5,4388,1411,0,4108,4388,0,0,0,0

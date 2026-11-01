@@ -1,0 +1,4 @@
+condition,qdisc,priomap,run,seed,traffic_class,configured_tos,dscp,band_0_enq,band_1_enq,band_2_enq,band_0_drop,band_1_drop,band_2_drop,total_enq,total_drop
+fifo_be,fifo,"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2",7,7,Emergency Alert,0x0,0,0,928,0,0,458,0,928,458
+fifo_be,fifo,"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2",7,7,Telemetry,0x0,0,0,1890,0,0,892,0,1890,892
+fifo_be,fifo,"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2",7,7,Ordinary Msg,0x0,0,0,3849,0,0,1697,0,3849,1697

@@ -1,0 +1,241 @@
+condition,qdisc,priomap,run,seed,traffic_class,configured_tos,dscp,band_0_enq,band_1_enq,band_2_enq,band_0_drop,band_1_drop,band_2_drop,total_enq,total_drop
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Emergency Alert,0x0,0,0,918,0,0,483,0,918,483
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Telemetry,0x0,0,0,1909,0,0,891,0,1909,891
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Ordinary Msg,0x0,0,0,3847,0,0,1742,0,3847,1742
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Emergency Alert,0xb8,46,0,1323,0,0,78,0,1323,78
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Telemetry,0x88,34,0,0,79,0,0,2721,79,2721
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Ordinary Msg,0x0,0,0,5322,0,0,267,0,5322,267
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Emergency Alert,0x0,0,0,985,0,0,410,0,985,410
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Telemetry,0x0,0,0,1885,0,0,902,0,1885,902
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Ordinary Msg,0x0,0,0,3789,0,0,1781,0,3789,1781
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Emergency Alert,0x0,0,0,927,0,0,474,0,927,474
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Telemetry,0x0,0,0,1941,0,0,840,0,1941,840
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Ordinary Msg,0x0,0,0,3786,0,0,1786,0,3786,1786
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Emergency Alert,0xb8,46,1401,0,0,0,0,0,1401,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Telemetry,0x88,34,0,2781,0,0,0,0,2781,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Ordinary Msg,0x0,0,0,0,2473,0,0,3099,2473,3099
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Emergency Alert,0xb8,46,1395,0,0,0,0,0,1395,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Telemetry,0x88,34,0,2787,0,0,0,0,2787,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Ordinary Msg,0x0,0,0,0,2480,0,0,3090,2480,3090
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Emergency Alert,0xb8,46,0,918,0,0,483,0,918,483
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Telemetry,0x88,34,0,1909,0,0,891,0,1909,891
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Ordinary Msg,0x0,0,0,3847,0,0,1742,0,3847,1742
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Emergency Alert,0xc0,48,0,1323,0,0,78,0,1323,78
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Telemetry,0x88,34,0,0,79,0,0,2721,79,2721
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Ordinary Msg,0x0,0,0,5322,0,0,267,0,5322,267
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Emergency Alert,0xc0,48,0,1317,0,0,84,0,1317,84
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Telemetry,0x88,34,0,0,75,0,0,2706,75,2706
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Ordinary Msg,0x0,0,0,5312,0,0,260,0,5312,260
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Emergency Alert,0x10,4,1393,0,0,0,0,0,1393,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Telemetry,0x0,0,0,1734,0,0,1030,0,1734,1030
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Ordinary Msg,0x0,0,0,3525,0,0,2054,0,3525,2054
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Emergency Alert,0xc0,48,0,1333,0,0,62,0,1333,62
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Telemetry,0x88,34,0,0,80,0,0,2707,80,2707
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Ordinary Msg,0x0,0,0,5296,0,0,274,0,5296,274
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Emergency Alert,0x10,4,1396,0,0,0,0,0,1396,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Telemetry,0x0,0,0,1775,0,0,1018,0,1775,1018
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Ordinary Msg,0x0,0,0,3478,0,0,2089,0,3478,2089
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Emergency Alert,0x10,4,1401,0,0,0,0,0,1401,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Telemetry,0x0,0,0,1727,0,0,1058,0,1727,1058
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Ordinary Msg,0x0,0,0,3525,0,0,2035,0,3525,2035
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Emergency Alert,0x10,4,1391,0,0,0,0,0,1391,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Telemetry,0x0,0,0,1752,0,0,1038,0,1752,1038
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Ordinary Msg,0x0,0,0,3542,0,0,2045,0,3542,2045
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Emergency Alert,0x10,4,1386,0,0,0,0,0,1386,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Telemetry,0x0,0,0,1734,0,0,1048,0,1734,1048
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Ordinary Msg,0x0,0,0,3548,0,0,1998,0,3548,1998
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Emergency Alert,0xb8,46,0,1333,0,0,62,0,1333,62
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Telemetry,0x88,34,0,0,80,0,0,2707,80,2707
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Ordinary Msg,0x0,0,0,5296,0,0,274,0,5296,274
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Emergency Alert,0x2e,11,0,0,67,0,0,1334,67,1334
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Telemetry,0x22,8,0,2216,0,0,584,0,2216,584
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Ordinary Msg,0x0,0,0,4441,0,0,1148,0,4441,1148
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Emergency Alert,0x10,4,1395,0,0,0,0,0,1395,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Telemetry,0x88,34,0,2787,0,0,0,0,2787,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Ordinary Msg,0x0,0,0,0,2480,0,0,3090,2480,3090
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Emergency Alert,0x2e,11,0,0,70,0,0,1331,70,1331
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Telemetry,0x22,8,0,2235,0,0,546,0,2235,546
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Ordinary Msg,0x0,0,0,4399,0,0,1173,0,4399,1173
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Emergency Alert,0x10,4,1390,0,0,0,0,0,1390,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Telemetry,0x0,0,0,1746,0,0,1051,0,1746,1051
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Ordinary Msg,0x0,0,0,3516,0,0,2055,0,3516,2055
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Emergency Alert,0xb8,46,0,985,0,0,410,0,985,410
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Telemetry,0x88,34,0,1885,0,0,902,0,1885,902
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,8,8,Ordinary Msg,0x0,0,0,3789,0,0,1781,0,3789,1781
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Emergency Alert,0xb8,46,0,927,0,0,474,0,927,474
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Telemetry,0x88,34,0,1941,0,0,840,0,1941,840
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Ordinary Msg,0x0,0,0,3786,0,0,1786,0,3786,1786
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Emergency Alert,0x10,4,1398,0,0,0,0,0,1398,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Telemetry,0x0,0,0,1722,0,0,1055,0,1722,1055
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Ordinary Msg,0x0,0,0,3556,0,0,2017,0,3556,2017
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Emergency Alert,0x2e,11,0,0,70,0,0,1325,70,1325
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Telemetry,0x22,8,0,2226,0,0,561,0,2226,561
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Ordinary Msg,0x0,0,0,4412,0,0,1158,0,4412,1158
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Emergency Alert,0x10,4,1401,0,0,0,0,0,1401,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Telemetry,0x88,34,0,2781,0,0,0,0,2781,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,9,9,Ordinary Msg,0x0,0,0,0,2473,0,0,3099,2473,3099
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Emergency Alert,0xb8,46,0,1317,0,0,84,0,1317,84
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Telemetry,0x88,34,0,0,75,0,0,2706,75,2706
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Ordinary Msg,0x0,0,0,5312,0,0,260,0,5312,260
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Emergency Alert,0xb8,46,0,1311,0,0,87,0,1311,87
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Telemetry,0x88,34,0,0,85,0,0,2692,85,2692
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Ordinary Msg,0x0,0,0,5328,0,0,245,0,5328,245
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Emergency Alert,0x2e,11,0,0,62,0,0,1328,62,1328
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Telemetry,0x22,8,0,2219,0,0,578,0,2219,578
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Ordinary Msg,0x0,0,0,4421,0,0,1150,0,4421,1150
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Emergency Alert,0x10,4,1398,0,0,0,0,0,1398,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Telemetry,0x88,34,0,2777,0,0,0,0,2777,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Ordinary Msg,0x0,0,0,0,2501,0,0,3072,2501,3072
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Emergency Alert,0x10,4,1401,0,0,0,0,0,1401,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Telemetry,0x0,0,0,1774,0,0,1007,0,1774,1007
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,9,9,Ordinary Msg,0x0,0,0,3480,0,0,2092,0,3480,2092
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Emergency Alert,0xb8,46,0,949,0,0,449,0,949,449
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Telemetry,0x88,34,0,1894,0,0,883,0,1894,883
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Ordinary Msg,0x0,0,0,3833,0,0,1740,0,3833,1740
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Emergency Alert,0xb8,46,0,941,0,0,449,0,941,449
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Telemetry,0x88,34,0,1894,0,0,903,0,1894,903
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Ordinary Msg,0x0,0,0,3817,0,0,1754,0,3817,1754
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Emergency Alert,0xc0,48,0,1326,0,0,67,0,1326,67
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Telemetry,0x88,34,0,0,70,0,0,2694,70,2694
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Ordinary Msg,0x0,0,0,5306,0,0,273,0,5306,273
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Emergency Alert,0x10,4,1395,0,0,0,0,0,1395,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Telemetry,0x0,0,0,1732,0,0,1055,0,1732,1055
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,8,8,Ordinary Msg,0x0,0,0,3532,0,0,2038,0,3532,2038
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Emergency Alert,0x10,4,1390,0,0,0,0,0,1390,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Telemetry,0x88,34,0,2797,0,0,0,0,2797,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Ordinary Msg,0x0,0,0,0,2467,0,0,3104,2467,3104
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Emergency Alert,0x2e,11,0,0,66,0,0,1332,66,1332
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Telemetry,0x22,8,0,2201,0,0,576,0,2201,576
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Ordinary Msg,0x0,0,0,4459,0,0,1114,0,4459,1114
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Emergency Alert,0xb8,46,0,1315,0,0,75,0,1315,75
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Telemetry,0x88,34,0,0,86,0,0,2711,86,2711
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Ordinary Msg,0x0,0,0,5301,0,0,270,0,5301,270
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Emergency Alert,0xb8,46,0,1301,0,0,85,0,1301,85
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Telemetry,0x88,34,0,0,90,0,0,2692,90,2692
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Ordinary Msg,0x0,0,0,5323,0,0,223,0,5323,223
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Emergency Alert,0x10,4,1386,0,0,0,0,0,1386,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Telemetry,0x88,34,0,2782,0,0,0,0,2782,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Ordinary Msg,0x0,0,0,0,2500,0,0,3046,2500,3046
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Emergency Alert,0x2e,11,0,0,62,0,0,1329,62,1329
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Telemetry,0x22,8,0,2228,0,0,562,0,2228,562
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Ordinary Msg,0x0,0,0,4445,0,0,1142,0,4445,1142
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Emergency Alert,0xc0,48,0,1332,0,0,64,0,1332,64
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Telemetry,0x88,34,0,0,82,0,0,2711,82,2711
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Ordinary Msg,0x0,0,0,5285,0,0,282,0,5285,282
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Emergency Alert,0xb8,46,0,928,0,0,458,0,928,458
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Telemetry,0x88,34,0,1890,0,0,892,0,1890,892
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Ordinary Msg,0x0,0,0,3849,0,0,1697,0,3849,1697
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Emergency Alert,0xb8,46,0,944,0,0,447,0,944,447
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Telemetry,0x88,34,0,1899,0,0,891,0,1899,891
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Ordinary Msg,0x0,0,0,3842,0,0,1745,0,3842,1745
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Emergency Alert,0xc0,48,0,1337,0,0,64,0,1337,64
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Telemetry,0x88,34,0,0,73,0,0,2712,73,2712
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Ordinary Msg,0x0,0,0,5289,0,0,271,0,5289,271
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Emergency Alert,0x2e,11,0,0,61,0,0,1325,61,1325
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Telemetry,0x22,8,0,2199,0,0,583,0,2199,583
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Ordinary Msg,0x0,0,0,4457,0,0,1089,0,4457,1089
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Emergency Alert,0x10,4,1391,0,0,0,0,0,1391,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Telemetry,0x88,34,0,2790,0,0,0,0,2790,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Ordinary Msg,0x0,0,0,0,2506,0,0,3081,2506,3081
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Emergency Alert,0xb8,46,0,1327,0,0,64,0,1327,64
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Telemetry,0x88,34,0,0,82,0,0,2708,82,2708
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Ordinary Msg,0x0,0,0,5323,0,0,264,0,5323,264
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Emergency Alert,0xb8,46,0,1337,0,0,64,0,1337,64
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Telemetry,0x88,34,0,0,73,0,0,2712,73,2712
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Ordinary Msg,0x0,0,0,5289,0,0,271,0,5289,271
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Emergency Alert,0x10,4,1401,0,0,0,0,0,1401,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Telemetry,0x88,34,0,2785,0,0,0,0,2785,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Ordinary Msg,0x0,0,0,0,2470,0,0,3090,2470,3090
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Emergency Alert,0x2e,11,0,0,61,0,0,1335,61,1335
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Telemetry,0x22,8,0,2234,0,0,559,0,2234,559
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Ordinary Msg,0x0,0,0,4404,0,0,1163,0,4404,1163
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Emergency Alert,0xc0,48,0,1327,0,0,64,0,1327,64
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Telemetry,0x88,34,0,0,82,0,0,2708,82,2708
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,6,6,Ordinary Msg,0x0,0,0,5323,0,0,264,0,5323,264
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Emergency Alert,0xb8,46,0,940,0,0,461,0,940,461
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Telemetry,0x88,34,0,1896,0,0,889,0,1896,889
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Ordinary Msg,0x0,0,0,3817,0,0,1743,0,3817,1743
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Emergency Alert,0xb8,46,0,967,0,0,429,0,967,429
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Telemetry,0x88,34,0,1916,0,0,877,0,1916,877
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Ordinary Msg,0x0,0,0,3766,0,0,1801,0,3766,1801
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Emergency Alert,0xc0,48,0,1301,0,0,85,0,1301,85
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Telemetry,0x88,34,0,0,90,0,0,2692,90,2692
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,7,7,Ordinary Msg,0x0,0,0,5323,0,0,223,0,5323,223
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Emergency Alert,0x2e,11,0,0,69,0,0,1332,69,1332
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Telemetry,0x22,8,0,2209,0,0,576,0,2209,576
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,2,2,Ordinary Msg,0x0,0,0,4425,0,0,1135,0,4425,1135
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Emergency Alert,0x10,4,1396,0,0,0,0,0,1396,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Telemetry,0x88,34,0,2793,0,0,0,0,2793,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Ordinary Msg,0x0,0,0,0,2464,0,0,3103,2464,3103
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Emergency Alert,0x10,4,1401,0,0,0,0,0,1401,0
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Telemetry,0x0,0,0,1773,0,0,1027,0,1773,1027
+prio_default_tos10,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,10,10,Ordinary Msg,0x0,0,0,3500,0,0,2089,0,3500,2089
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Emergency Alert,0xb8,46,0,1332,0,0,64,0,1332,64
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Telemetry,0x88,34,0,0,82,0,0,2711,82,2711
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,3,3,Ordinary Msg,0x0,0,0,5285,0,0,282,0,5285,282
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Emergency Alert,0xb8,46,0,1326,0,0,67,0,1326,67
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Telemetry,0x88,34,0,0,70,0,0,2694,70,2694
+prio_default_diffserv,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Ordinary Msg,0x0,0,0,5306,0,0,273,0,5306,273
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Emergency Alert,0x10,4,1393,0,0,0,0,0,1393,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Telemetry,0x88,34,0,2764,0,0,0,0,2764,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Ordinary Msg,0x0,0,0,0,2496,0,0,3083,2496,3083
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Emergency Alert,0xc0,48,0,1315,0,0,75,0,1315,75
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Telemetry,0x88,34,0,0,86,0,0,2711,86,2711
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,5,5,Ordinary Msg,0x0,0,0,5301,0,0,270,0,5301,270
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Emergency Alert,0xb8,46,0,952,0,0,441,0,952,441
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Telemetry,0x88,34,0,1871,0,0,893,0,1871,893
+fifo_diffserv,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Ordinary Msg,0x0,0,0,3829,0,0,1750,0,3829,1750
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Emergency Alert,0xc0,48,0,1311,0,0,87,0,1311,87
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Telemetry,0x88,34,0,0,85,0,0,2692,85,2692
+prio_default_cs6,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,4,4,Ordinary Msg,0x0,0,0,5328,0,0,245,0,5328,245
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Emergency Alert,0x2e,11,0,0,65,0,0,1328,65,1328
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Telemetry,0x22,8,0,2185,0,0,579,0,2185,579
+prio_default_unshifted,prio,1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1,1,1,Ordinary Msg,0x0,0,0,4452,0,0,1127,0,4452,1127
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Emergency Alert,0x10,4,1401,0,0,0,0,0,1401,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Telemetry,0x88,34,0,2800,0,0,0,0,2800,0
+prio_custom_tos10,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Ordinary Msg,0x0,0,0,0,2476,0,0,3113,2476,3113
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Emergency Alert,0x0,0,0,940,0,0,461,0,940,461
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Telemetry,0x0,0,0,1896,0,0,889,0,1896,889
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Ordinary Msg,0x0,0,0,3817,0,0,1743,0,3817,1743
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Emergency Alert,0xb8,46,1391,0,0,0,0,0,1391,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Telemetry,0x88,34,0,2790,0,0,0,0,2790,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Ordinary Msg,0x0,0,0,0,2506,0,0,3081,2506,3081
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Emergency Alert,0xb8,46,1386,0,0,0,0,0,1386,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Telemetry,0x88,34,0,2782,0,0,0,0,2782,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Ordinary Msg,0x0,0,0,0,2500,0,0,3046,2500,3046
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Emergency Alert,0x0,0,0,967,0,0,429,0,967,429
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Telemetry,0x0,0,0,1916,0,0,877,0,1916,877
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Ordinary Msg,0x0,0,0,3766,0,0,1801,0,3766,1801
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Emergency Alert,0x0,0,0,952,0,0,441,0,952,441
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Telemetry,0x0,0,0,1871,0,0,893,0,1871,893
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Ordinary Msg,0x0,0,0,3829,0,0,1750,0,3829,1750
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Emergency Alert,0xb8,46,1390,0,0,0,0,0,1390,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Telemetry,0x88,34,0,2797,0,0,0,0,2797,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Ordinary Msg,0x0,0,0,0,2467,0,0,3104,2467,3104
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Emergency Alert,0xb8,46,1398,0,0,0,0,0,1398,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Telemetry,0x88,34,0,2777,0,0,0,0,2777,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Ordinary Msg,0x0,0,0,0,2501,0,0,3072,2501,3072
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Emergency Alert,0x0,0,0,949,0,0,449,0,949,449
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Telemetry,0x0,0,0,1894,0,0,883,0,1894,883
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,4,4,Ordinary Msg,0x0,0,0,3833,0,0,1740,0,3833,1740
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Emergency Alert,0xb8,46,1393,0,0,0,0,0,1393,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Telemetry,0x88,34,0,2764,0,0,0,0,2764,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,1,1,Ordinary Msg,0x0,0,0,0,2496,0,0,3083,2496,3083
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Emergency Alert,0x0,0,0,941,0,0,449,0,941,449
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Telemetry,0x0,0,0,1894,0,0,903,0,1894,903
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,5,5,Ordinary Msg,0x0,0,0,3817,0,0,1754,0,3817,1754
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Emergency Alert,0x0,0,0,928,0,0,458,0,928,458
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Telemetry,0x0,0,0,1890,0,0,892,0,1890,892
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,7,7,Ordinary Msg,0x0,0,0,3849,0,0,1697,0,3849,1697
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Emergency Alert,0xb8,46,1396,0,0,0,0,0,1396,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Telemetry,0x88,34,0,2793,0,0,0,0,2793,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,3,3,Ordinary Msg,0x0,0,0,0,2464,0,0,3103,2464,3103
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Emergency Alert,0xb8,46,1401,0,0,0,0,0,1401,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Telemetry,0x88,34,0,2785,0,0,0,0,2785,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,2,2,Ordinary Msg,0x0,0,0,0,2470,0,0,3090,2470,3090
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Emergency Alert,0x0,0,0,944,0,0,447,0,944,447
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Telemetry,0x0,0,0,1899,0,0,891,0,1899,891
+fifo_be,fifo,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,6,6,Ordinary Msg,0x0,0,0,3842,0,0,1745,0,3842,1745
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Emergency Alert,0xb8,46,1401,0,0,0,0,0,1401,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Telemetry,0x88,34,0,2800,0,0,0,0,2800,0
+prio_custom_diffserv,prio,2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2,10,10,Ordinary Msg,0x0,0,0,0,2476,0,0,3113,2476,3113

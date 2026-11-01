@@ -1,0 +1,4 @@
+condition,qdisc,priomap,run,seed,traffic_class,configured_tos,dscp,num_flows,total_tx,total_rx,total_lost,pdr_percent,throughput_kbps,mean_delay_ms,mean_jitter_ms,queue_drops,band0_enqueued,band1_enqueued,band2_enqueued,band0_dropped,band1_dropped,band2_dropped
+fifo_diffserv,fifo,"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2",2,2,Emergency Alert,0xb8,46,10,1401,940,461,67.0949,140.0276,231.3491,5.9113,461,0,940,0,0,461,0
+fifo_diffserv,fifo,"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2",2,2,Telemetry,0x88,34,10,2785,1896,889,68.0790,282.4386,233.4664,4.8832,889,0,1896,0,0,889,0
+fifo_diffserv,fifo,"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2",2,2,Ordinary Msg,0x0,0,20,5560,3817,1743,68.6511,568.6014,233.0071,4.7951,1743,0,3817,0,0,1743,0

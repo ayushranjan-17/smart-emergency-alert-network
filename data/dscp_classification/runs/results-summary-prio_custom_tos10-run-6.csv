@@ -1,0 +1,4 @@
+condition,qdisc,priomap,run,seed,traffic_class,configured_tos,dscp,num_flows,total_tx,total_rx,total_lost,pdr_percent,throughput_kbps,mean_delay_ms,mean_jitter_ms,queue_drops,band0_enqueued,band1_enqueued,band2_enqueued,band0_dropped,band1_dropped,band2_dropped
+prio_custom_tos10,prio,"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2",6,6,Emergency Alert,0x10,4,10,1391,1391,0,100.0000,207.2110,28.6595,1.9478,0,1391,0,0,0,0,0
+prio_custom_tos10,prio,"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2",6,6,Telemetry,0x88,34,10,2790,2790,0,100.0000,415.6138,32.1482,5.5417,0,0,2790,0,0,0,0
+prio_custom_tos10,prio,"2 2 1 2 0 2 0 0 2 2 2 2 2 2 2 2",6,6,Ordinary Msg,0x0,0,20,5587,2506,3081,44.8541,373.3076,582.2562,26.7479,3081,0,0,2506,0,0,3081

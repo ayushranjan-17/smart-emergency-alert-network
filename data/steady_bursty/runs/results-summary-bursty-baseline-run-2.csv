@@ -1,0 +1,3 @@
+Scenario,Mode,Run,Seed,TrafficClass,FlowCount,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
+BURSTY,baseline,2,2,"Emergency Alert",10,1415,1074,341,75.90,159.99,119.303,101.813,341
+BURSTY,baseline,2,2,"Ordinary Msg",30,8487,4437,4050,52.28,660.96,188.900,67.192,4050

@@ -1,0 +1,41 @@
+condition,qdisc,run,seed,flow_index,source_node,dest_server,traffic_class,configured_tos,dscp,dest_ip,dest_port,tx_packets,rx_packets,lost_packets,pdr_percent,throughput_kbps,mean_delay_ms,mean_jitter_ms
+prio_custom_diffserv,prio,8,8,0,0,45,Emergency Alert,0xb8,46,10.4.1.2,9000,141,141,0,100.0000,21.0041,28.5189,2.1500
+prio_custom_diffserv,prio,8,8,1,1,45,Emergency Alert,0xb8,46,10.4.1.2,9001,137,137,0,100.0000,20.4083,28.6233,1.7417
+prio_custom_diffserv,prio,8,8,2,2,46,Emergency Alert,0xb8,46,10.4.2.2,9000,142,142,0,100.0000,21.1531,28.6433,2.0695
+prio_custom_diffserv,prio,8,8,3,3,46,Emergency Alert,0xb8,46,10.4.2.2,9001,138,138,0,100.0000,20.5572,28.7288,1.8433
+prio_custom_diffserv,prio,8,8,4,4,47,Emergency Alert,0xb8,46,10.4.3.2,9000,140,140,0,100.0000,20.8552,28.2670,1.9276
+prio_custom_diffserv,prio,8,8,5,5,47,Emergency Alert,0xb8,46,10.4.3.2,9001,142,142,0,100.0000,21.1531,28.5931,1.8729
+prio_custom_diffserv,prio,8,8,6,6,48,Emergency Alert,0xb8,46,10.4.4.2,9000,138,138,0,100.0000,20.5572,28.6872,1.9894
+prio_custom_diffserv,prio,8,8,7,7,48,Emergency Alert,0xb8,46,10.4.4.2,9001,134,134,0,100.0000,19.9614,28.8118,1.8956
+prio_custom_diffserv,prio,8,8,8,8,49,Emergency Alert,0xb8,46,10.4.5.2,9000,142,142,0,100.0000,21.1531,28.7263,2.0448
+prio_custom_diffserv,prio,8,8,9,9,49,Emergency Alert,0xb8,46,10.4.5.2,9001,141,141,0,100.0000,21.0041,28.3564,1.7456
+prio_custom_diffserv,prio,8,8,10,10,45,Telemetry,0x88,34,10.4.1.2,9002,278,278,0,100.0000,41.4124,32.6322,6.0602
+prio_custom_diffserv,prio,8,8,11,11,45,Telemetry,0x88,34,10.4.1.2,9003,278,278,0,100.0000,41.4124,31.9644,4.8940
+prio_custom_diffserv,prio,8,8,12,12,46,Telemetry,0x88,34,10.4.2.2,9002,280,280,0,100.0000,41.7103,31.9285,5.0776
+prio_custom_diffserv,prio,8,8,13,13,46,Telemetry,0x88,34,10.4.2.2,9003,280,280,0,100.0000,41.7103,31.8509,5.1477
+prio_custom_diffserv,prio,8,8,14,14,47,Telemetry,0x88,34,10.4.3.2,9002,279,279,0,100.0000,41.5614,32.0268,5.4888
+prio_custom_diffserv,prio,8,8,15,15,47,Telemetry,0x88,34,10.4.3.2,9003,277,277,0,100.0000,41.2634,31.8036,5.4383
+prio_custom_diffserv,prio,8,8,16,16,48,Telemetry,0x88,34,10.4.4.2,9002,281,281,0,100.0000,41.8593,32.1183,5.1197
+prio_custom_diffserv,prio,8,8,17,17,48,Telemetry,0x88,34,10.4.4.2,9003,275,275,0,100.0000,40.9655,31.4581,5.2975
+prio_custom_diffserv,prio,8,8,18,18,49,Telemetry,0x88,34,10.4.5.2,9002,281,281,0,100.0000,41.8593,31.8576,5.4585
+prio_custom_diffserv,prio,8,8,19,19,49,Telemetry,0x88,34,10.4.5.2,9003,278,278,0,100.0000,41.4124,31.4505,5.1167
+prio_custom_diffserv,prio,8,8,20,20,45,Ordinary Msg,0x0,0,10.4.1.2,9004,274,121,153,44.1606,18.0248,594.0409,27.5162
+prio_custom_diffserv,prio,8,8,21,21,45,Ordinary Msg,0x0,0,10.4.1.2,9005,278,115,163,41.3669,17.1310,597.1500,27.3399
+prio_custom_diffserv,prio,8,8,22,22,45,Ordinary Msg,0x0,0,10.4.1.2,9006,277,118,159,42.5993,17.5779,594.1320,28.0925
+prio_custom_diffserv,prio,8,8,23,23,45,Ordinary Msg,0x0,0,10.4.1.2,9007,281,128,153,45.5516,19.0676,587.5913,27.9425
+prio_custom_diffserv,prio,8,8,24,24,46,Ordinary Msg,0x0,0,10.4.2.2,9004,277,131,146,47.2924,19.5145,599.2061,27.6156
+prio_custom_diffserv,prio,8,8,25,25,46,Ordinary Msg,0x0,0,10.4.2.2,9005,276,119,157,43.1159,17.7269,585.5086,27.9525
+prio_custom_diffserv,prio,8,8,26,26,46,Ordinary Msg,0x0,0,10.4.2.2,9006,286,136,150,47.5524,20.2593,563.9413,25.9859
+prio_custom_diffserv,prio,8,8,27,27,46,Ordinary Msg,0x0,0,10.4.2.2,9007,279,118,161,42.2939,17.5779,573.8281,26.5129
+prio_custom_diffserv,prio,8,8,28,28,47,Ordinary Msg,0x0,0,10.4.3.2,9004,282,130,152,46.0993,19.3655,572.5661,28.2860
+prio_custom_diffserv,prio,8,8,29,29,47,Ordinary Msg,0x0,0,10.4.3.2,9005,282,136,146,48.2270,20.2593,578.1674,27.1223
+prio_custom_diffserv,prio,8,8,30,30,47,Ordinary Msg,0x0,0,10.4.3.2,9006,279,124,155,44.4444,18.4717,587.4569,29.8115
+prio_custom_diffserv,prio,8,8,31,31,47,Ordinary Msg,0x0,0,10.4.3.2,9007,276,123,153,44.5652,18.3228,599.6013,25.5141
+prio_custom_diffserv,prio,8,8,32,32,48,Ordinary Msg,0x0,0,10.4.4.2,9004,278,126,152,45.3237,18.7697,600.4629,29.0948
+prio_custom_diffserv,prio,8,8,33,33,48,Ordinary Msg,0x0,0,10.4.4.2,9005,276,119,157,43.1159,17.7269,584.4753,27.8979
+prio_custom_diffserv,prio,8,8,34,34,48,Ordinary Msg,0x0,0,10.4.4.2,9006,283,147,136,51.9435,21.8979,572.1902,25.1921
+prio_custom_diffserv,prio,8,8,35,35,48,Ordinary Msg,0x0,0,10.4.4.2,9007,276,126,150,45.6522,18.7697,591.6636,27.7039
+prio_custom_diffserv,prio,8,8,36,36,49,Ordinary Msg,0x0,0,10.4.5.2,9004,278,113,165,40.6475,16.8331,580.9279,25.6985
+prio_custom_diffserv,prio,8,8,37,37,49,Ordinary Msg,0x0,0,10.4.5.2,9005,276,119,157,43.1159,17.7269,602.2631,29.1872
+prio_custom_diffserv,prio,8,8,38,38,49,Ordinary Msg,0x0,0,10.4.5.2,9006,273,113,160,41.3919,16.8331,600.8932,23.6556
+prio_custom_diffserv,prio,8,8,39,39,49,Ordinary Msg,0x0,0,10.4.5.2,9007,283,118,165,41.6961,17.5779,562.8250,26.1560

@@ -1,0 +1,16 @@
+Parameter,Value
+Experiment,SEAN Queue Discipline Evaluation
+Simulator,ns-3.49
+Network Topology,50 Nodes (40 Sources 3 Regional Routers 2 Core Gateways 5 Sink Servers)
+Bottleneck Link,Node 43 to Node 44 (1 Mbps 10 ms delay 50 packet capacity)
+Queue Disciplines Evaluated,FIFO PrioQueueDisc RedQueueDisc CoDelQueueDisc Prio-CoDel
+RED Parameters,MinTh=10p MaxTh=30p MaxSize=50p QW=0.002 MeanPktSize=540B
+CoDel Parameters,Target=5ms Interval=100ms MaxSize=50p MinBytes=540B
+Offered Loads Tested,50% 80% 100% 120% 140%
+Traffic Distribution,Emergency Alert: 10 flows (1/7 offered load TOS 0x10); Ordinary Msg: 30 flows (6/7 offered load TOS 0x00)
+Simulation Duration,30.0s (Active window 29.0s)
+Replications,10 runs per condition (Seeds 1..10)
+Total Simulation Runs,250
+Execution Timestamp,2026-10-30 20:38:38Z
+Master CSV Path,data/queue_disc_comparison/queue_disc_comparison_master.csv
+Status,COMPLETED_VERIFIED

@@ -1,4 +1,4 @@
 Mode,FlowId,TrafficClass,Port,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
-Priority,1,"Emergency Alert",9000,1415,1415,0,100.00,210.92,22.261,1.415,0
-Priority,2,"Ordinary Msg 1",9001,4244,2680,1564,63.15,396.52,288.928,2.902,1564
-Priority,3,"Ordinary Msg 2",9002,4244,2638,1605,62.17,390.36,288.872,2.913,1605
+Priority,1,"Emergency Alert",9000,1415,1415,0,100.00,210.92,22.275,1.426,0
+Priority,2,"Ordinary Msg 1",9001,4247,2664,1582,62.75,394.24,288.889,2.919,1582
+Priority,3,"Ordinary Msg 2",9002,4243,2653,1589,62.54,392.65,288.946,2.907,1589

@@ -1,0 +1,3 @@
+Mode,Run,Seed,LoadPercent,TrafficClass,FlowCount,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
+baseline,4,1,80,Emergency Alert,10,803,803,0,100.00,119.62,27.79,7.20,0
+baseline,4,1,80,Ordinary Msg,30,4819,4819,0,100.00,717.86,27.08,6.79,0

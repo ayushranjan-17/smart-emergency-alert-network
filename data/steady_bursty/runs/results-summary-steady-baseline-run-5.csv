@@ -1,0 +1,3 @@
+Scenario,Mode,Run,Seed,TrafficClass,FlowCount,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
+STEADY,baseline,5,5,"Emergency Alert",10,1411,962,449,68.18,143.30,237.198,4.873,449
+STEADY,baseline,5,5,"Ordinary Msg",30,8496,5758,2738,67.77,857.74,236.255,4.556,2738

@@ -1,0 +1,3 @@
+QDisc,Run,Seed,LoadPercent,TrafficClass,FlowCount,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
+fifo,3,3,80,Emergency Alert,10,803,803,0,100.00,119.62,29.10,7.56,0
+fifo,3,3,80,Ordinary Msg,30,4829,4829,0,100.00,719.35,29.09,6.43,0

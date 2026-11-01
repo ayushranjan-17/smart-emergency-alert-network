@@ -1,0 +1,3 @@
+QDisc,Run,Seed,LoadPercent,TrafficClass,FlowCount,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
+codel,7,7,100,Emergency Alert,10,1003,961,42,95.81,143.16,45.20,9.57,42
+codel,7,7,100,Ordinary Msg,30,6025,5700,325,94.61,849.10,44.85,9.34,325

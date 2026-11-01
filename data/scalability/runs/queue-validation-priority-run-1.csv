@@ -1,0 +1,2 @@
+Mode,RunIndex,Seed,Band0Enqueued,Band1Enqueued,Band2Enqueued,Band0Dropped,Band1Dropped,Band2Dropped,TotalQueueDrops
+priority,1,1,1410,5305,0,0,3184,0,3184

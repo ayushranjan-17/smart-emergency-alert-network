@@ -1,0 +1,3 @@
+QDisc,Run,Seed,LoadPercent,TrafficClass,FlowCount,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
+prio-codel,10,10,80,Emergency Alert,10,803,803,0,100.00,119.62,26.15,3.24,0
+prio-codel,10,10,80,Ordinary Msg,30,4840,4839,1,99.98,720.84,28.67,6.61,1

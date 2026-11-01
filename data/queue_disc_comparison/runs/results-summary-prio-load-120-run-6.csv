@@ -1,0 +1,3 @@
+QDisc,Run,Seed,LoadPercent,TrafficClass,FlowCount,TxPackets,RxPackets,LostPackets,PDR_Percent,Throughput_Kbps,MeanDelay_ms,MeanJitter_ms,QueueDrops
+prio,6,6,120,Emergency Alert,10,1209,1209,0,100.00,180.10,28.65,1.88,0
+prio,6,6,120,Ordinary Msg,30,7248,5506,1742,75.97,820.20,279.25,9.40,1742
